@@ -131,10 +131,22 @@ export default {
           width: 100%;
           height: 50px;
           border: none;
-          line-height: 50px;
           color: #fff;
           position: fixed;
           bottom: 0;
+          background: #09f;
+          text-align: center;
+          color: #fff;
+          p{
+              &:nth-child(1){
+                  line-height: 25px;
+                  font-size: 18px;
+              }
+              &:nth-child(2){
+                  line-height: 20px;
+                  font-size: 15px;
+              }
+          }
          
       }
 
