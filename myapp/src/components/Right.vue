@@ -3,11 +3,13 @@
          
       <div class="rightcont-son"  v-for="(item,index) in rightarr" :key="index">
           <h3 class="title">{{item.GroupName}}</h3>
-             <div class="itemdiv" v-for="(itemlist,itemindex) in item.GroupList" :key="itemindex" @click="detail(itemlist.SerialID)">
+             <div class="itemdiv" v-for="(itemlist,itemindex) in item.GroupList" :key="itemindex" @touchstart="detail(itemlist.SerialID)">
                   <div><img :src="itemlist.Picture" alt=""></div>
                   <div class="everone">
-                       <p>{{itemlist.AliasName}}</p>
-                       <p class="price">{{itemlist.DealerPrice}}</p>
+                      <div>
+                          <p>{{itemlist.AliasName}}</p>
+                       <p class="price">{{itemlist.DealerPrice}}</p></div>
+                       
                   </div> 
              </div>
       </div>
