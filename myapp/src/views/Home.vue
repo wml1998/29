@@ -1,13 +1,13 @@
 <template>
     <div class="home" v-if="arr" >
+         <Right  :rightarr="this.rightarr" :flag="flag" />
           <div v-for="(item,index) in arr" :key="index" :id='item.letter' class="ele"> 
              <h4>{{item.letter}}</h4>
-          <div v-for="(item,index) in item.newArr" :key="index" class="item">
-            <ul class="list">
-              <li><img :src='item.CoverPhoto' alt=""></li>
-              <li>{{item.Name}}</li>
-            </ul>
-            </div>
+             <ul>
+                 <li v-for="(item,index) in item.newArr" :key="index" class="item" @click="rightindex(item.MasterID)">
+                   <img :src='item.CoverPhoto' alt="">   <span>{{item.Name}}</span> 
+                 </li>
+             </ul>
           </div>
           <div class="right">
             <li v-for="(item,index) in arr" :key="index">
@@ -21,17 +21,30 @@
 
 <script>
 import axios from "axios"
+import Right from "../components/Right.vue"
 export default {
+  components:{
+Right
+  },
    data(){
       return {
-        arr:[]
+        arr:[],
+        clickindex:"",
+        flag:false,
+        rightarr:[],
       }
    }, 
    methods:{
       fun(item){
-        // console.log(document.querySelector('.home'))
           document.querySelector('.home').scrollTop = document.querySelector(`#${item}`).offsetTop;
           console.log( document.querySelector('.home').scrollTop,document.querySelector(`#${item}`).offsetTop)
+      },
+      rightindex(MasterID){
+      axios.get("https://baojia.chelun.com/v2-car-getMakeListByMasterBrandId.html",{params:{MasterID}}).then(res=>{
+        console.log(res.data)
+        this.rightarr=res.data.data
+      })
+      this.flag=true
       }
    },
    created (){
@@ -58,8 +71,7 @@ export default {
   margin: 0;
   padding: 0;
   list-style: none;
-  text-decoration: none;
-  transition: 0.5s
+  text-decoration: none
 }
 .home {
   width: 100%;
@@ -69,9 +81,6 @@ export default {
 .wrap{
   width: 100%;
   height: 100%;
-}
-.list{
-   display: flex;
 }
 .right{
   position: fixed;
@@ -94,5 +103,8 @@ export default {
   width: 100%;
   height: 45px;
   line-height: 45px;
+}
+.item{
+display: flex
 }
 </style>

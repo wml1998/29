@@ -1,12 +1,23 @@
 <template>
     <div>
-        详情页面
+        询问低价
     </div>
 </template>
 
 <script>
+import axios from "axios"
 export default {
-
+       created() {
+           
+       },
+       methods: {
+           
+       },
+       data() {
+           return {
+               
+           }
+       },
 }
 </script>
 
