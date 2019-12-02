@@ -4,14 +4,14 @@
           <div v-for="(item,index) in arr" :key="index" :id='item.letter' class="ele"> 
              <h4>{{item.letter}}</h4>
              <ul>
-                 <li v-for="(item,index) in item.newArr" :key="index" class="item" @click="rightindex(item.MasterID)">
+                 <li v-for="(item,index) in item.newArr" :key="index" class="item" @touchend="rightindex(item.MasterID)">
                    <img :src='item.CoverPhoto' alt="">   <span>{{item.Name}}</span> 
                  </li>
              </ul>
           </div>
           <div class="right">
             <li v-for="(item,index) in arr" :key="index">
-               <span @click='fun(item.letter)'>
+               <span @touchend='fun(item.letter)'>
                  {{item.letter}}
                </span> 
             </li>
