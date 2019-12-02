@@ -1,6 +1,7 @@
 <template>
     <div>
-        询问低价
+        询问低价,
+        每辆车的低价
     </div>
 </template>
 

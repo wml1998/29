@@ -9,7 +9,7 @@
                         <p>指导价:{{jiagelan.official_refer_price}}</p>
                     </div>
                     <div>
-                        <button class="answer">询问低价</button>
+                        <button class="answer" @click="jump">询问低价</button>
                     </div>
                        
                  </div>
@@ -52,7 +52,14 @@ export default {
              })
     },
     methods: {
+           jump(){
+                  this.$router.push({
+                      path:"/home/desc"
+                  })
 
+
+
+           }
     }
 
 }
