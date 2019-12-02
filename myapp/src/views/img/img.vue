@@ -14,10 +14,10 @@ export default {
        },
        created() {
                 let SerialID=this.SerialID
-                 
+               axios.get("")   
        },
        methods: {
-           
+              
        },
 }
 </script>
