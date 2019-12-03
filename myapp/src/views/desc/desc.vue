@@ -8,14 +8,16 @@
 import axios from "axios"
 export default {
        created() {
-           
+           axios.get("https://baojia.chelun.com/h2-submit-lowprice.html").then(res=>{
+               console.log(res)
+           })
        },
        methods: {
            
        },
        data() {
            return {
-               
+               listdata:[]
            }
        },
 }

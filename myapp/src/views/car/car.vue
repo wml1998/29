@@ -5,7 +5,7 @@
               <div class="img">
                   <div class="spa">
                     <img :src="bannerimg" alt="" @click="tabImg()">
-                    <span>225张照片</span>
+                    <span>{{imgUrl}}</span>
                   </div>
                   <div class="cen">
                       <div class="left">
@@ -13,7 +13,7 @@
                         <p>指导价:{{jiagelan.official_refer_price}}</p>
                       </div>
                       <div class="right">
-                        <button>询问底价</button>
+                        <button @click="btnClick()">{{btn}}</button>
                       </div>  
                   </div> 
               </div>
@@ -22,7 +22,7 @@
                 <p v-for="(item,index) in bottomlist" :key="index">{{item.car_name}} </p>
               </div>
         </div>
-        <div class="button">
+        <div class="button" @click="btnClick()">
             <p>询问底价</p>
             <p>本地经销商为你报价</p>
         </div>
@@ -38,7 +38,9 @@ export default {
             total:[],
             jiagelan:"",
             bottomlist:[],
-            bannerimg:""
+            bannerimg:"",
+            imgUrl:"",
+            btn:""
         }
     },
     created() {
@@ -50,11 +52,16 @@ export default {
                  this.jiagelan=this.total.data.market_attribute
                  this.bottomlist=this.total.data.list
                  this.bannerimg=this.total.data.CoverPhoto
+                 this.imgUrl=this.total.data.pic_group_count
+                 this.btn=this.total.data.BottomEntranceTitle
              })
     },
     methods: {
         tabImg(){
             // alert(111)
+        },
+        btnClick(){
+            this.$router.push("/home/desc")
         }
     }
 
@@ -131,11 +138,19 @@ export default {
           width: 100%;
           height: 50px;
           border: none;
-          line-height: 50px;
           color: #fff;
           position: fixed;
           bottom: 0;
-         
+          background: #0099ff;
+          text-align: center;
+          p{
+              &:nth-child(1){
+                font-size: 18px;
+              }
+              &:nth-child(2){
+                font-size: 14px;
+              }
+          }
       }
 
 </style>
