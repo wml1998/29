@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import Mint from 'mint-ui'
 import VueLazyload from 'vue-lazyload'
-
+// import './reset.css'
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   loading: '../public/timg.gif',

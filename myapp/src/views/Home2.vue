@@ -1,8 +1,6 @@
 <template>
-   <div class="home" v-if="arr" >
-           <div class="rightcomponent" ref="rightstyle"> 
-             <Right :rightarr="rightarr" :flag="this.flag"  />
-           </div>
+    <div class="home" v-if="arr" >
+         <Right  :rightarr="this.rightarr" :flag="flag" />
           <div v-for="(item,index) in arr" :key="index" :id='item.letter' class="ele"> 
              <p>{{item.letter}}</p>
              <ul>
@@ -20,50 +18,55 @@
           </div>
     </div>
 </template>
+
 <script>
+import axios from "axios"
 import Right from "../components/Right.vue"
-import {mapActions,mapState} from "vuex"
 export default {
-   name:"home",
-computed: {
-    ...mapState({
-        arr:state=>state.home.arr,
-        rightarr:state=>state.home.rightarr
-    })
-},
-data() {
-    return {
-        flag:false,
-    }
-},
   components:{
 Right
   },
-methods: {
-    ...mapActions({
-        getMasterBrandList:"home/getMasterBrandList",
-        getRightlist:"home/getRightlist"
-    }),
-         rightindex(MasterID){
-            console.log(MasterID)
-              this.getRightlist(MasterID)
-            this.flag=true;
-            this.$refs.rightstyle.style.width = "75%";
-
-      },
-      fun(id){
-        console.log(id)
+   data(){
+      return {
+        arr:[],
+        clickindex:"",
+        flag:false,
+        rightarr:[],
       }
-    
-},
-created() {
-    this.getMasterBrandList()
-    // this.getRightlist()
-
- }
+   }, 
+   methods:{
+      fun(item){
+          document.querySelector('.home').scrollTop = document.querySelector(`#${item}`).offsetTop;
+          console.log( document.querySelector('.home').scrollTop,document.querySelector(`#${item}`).offsetTop)
+      },
+      rightindex(MasterID){
+      axios.get("https://baojia.chelun.com/v2-car-getMakeListByMasterBrandId.html",{params:{MasterID}}).then(res=>{
+        console.log(res.data)
+        this.rightarr=res.data.data
+      })
+      this.flag=true
+      }
+   },
+   created (){
+      axios.get('https://baojia.chelun.com/v2-car-getMasterBrandList.html').then(res=>{
+        if(res.data.code == 1){
+           res.data.data.map((item,index)=>{
+              let letter = item.Spelling[0];
+              let newArr = res.data.data.filter(item => item.Spelling[0] == letter)
+              if(this.arr.findIndex(item => item.letter == letter) === -1){
+                  this.arr.push({letter,newArr})
+              }
+           })
+              console.log(this.arr)
+        }else{
+           alert(res.data.msg)
+        }
+      })
+   }
 }
 </script>
-<style lang="scss" scoped>
+
+<style lang='scss' scoped>
 *{
   margin: 0;
   padding: 0;
@@ -75,18 +78,6 @@ created() {
   height: 100%;
   overflow-y: scroll;
 }
-.rightcomponent{
-      position: fixed;
-    top: 0;
-    right: 0;
-    width: 0;
-    transition: all .2s ease;
-    background: #fff;
-    z-index: 100;
-    height: 100%;
-    box-shadow: 0 0 0.5rem #eee;
-}
-
 .wrap{
   width: 100%;
   height: 100%;
@@ -97,7 +88,7 @@ created() {
   }
 }
 .right{
-z-index: 999;
+z-index: 99;
     position: fixed;
     right: 0;
     top: 50%;
