@@ -1,6 +1,6 @@
 <template>
   <div class="home" v-if="arr">
-    <div class="homewrap" @touchstart="start" @touchmove="move" @touchend="end">
+    <div class="homewrap">
       <div class="rightcomponent" ref="rightstyle">
         <Right :rightarr="righAarr" :flag="this.flag" />
       </div>
@@ -13,16 +13,21 @@
           </li>
         </ul>
       </div>
-      <div class="right">
+      <!-- <div class="right"
+          ref="container"
+     
+         >
         <li v-for="(item,index) in arr" :key="index">
           <span>{{item.letter}}</span>
         </li>
-      </div>
+      </div> -->
+      <Repertory @Parent_jump="jumps" :arr="this.arr"></Repertory>
     </div>
   </div>
 </template>
 <script>
   import Right from "../components/Right.vue";
+  import Repertory from "../components/repertory.vue"
   import {
     mapActions,
     mapState
@@ -41,11 +46,17 @@
       };
     },
     components: {
-      Right
+      Right,
+      Repertory
     },
-    watch: {
-
-    },
+    // watch: {
+    //     arr:function(){
+    //       this.$nextTick(()=>{
+    //         this.offsetTop=(window.innerHeight-this.$refs.container.offsetHeight)/2
+    //         console.log('offsetTop...',this.offsetTop)
+    //       })
+    //     }
+    // },
     methods: {
       ...mapActions({
         getMasterBrandList: "home/getMasterBrandList",
@@ -57,12 +68,25 @@
         this.flag = true;
         this.$refs.rightstyle.style.width = "75%";
       },
-      start(e) {
-      },
-      move(e) {
-      },
-      end(e) {
+      jumps(item){
+        // console.log(item.letter,"22222222222")
+        this.iScroller=item.letter;
+        // document.querySelector(".homewrap").scrollTop=333
+        //   console.log(document.querySelector(`#${item.letter}` ).offsetTop)
+        // document.querySelector(".homewrap").scrollTop = document.querySelector(
+        // `#${item.letter}`).offsetTop
+        console.log(document.querySelector(
+        `#${item.letter}`).offsetTop,"11111111")
+
+        console.log()
+        // document.querySelector(".homewrap").scrollTop=document.querySelector(
+        // `#${item.letter}`).offsetTop
       }
+      // touchStart(e){
+      //   let y=e.touches[0].pageY-this.offsetTop
+      //   let index=Math.floor(y/18)
+      //   console.log('start...',e.touches[0],this.arr[index])
+      // }
     },
     created() {
       this.getMasterBrandList();
@@ -86,7 +110,7 @@
     top: 0;
     right: 0;
     width: 0;
-    transition: all 0.2s ease;
+    transition: all .2s ease;
     background: #fff;
     z-index: 100;
     height: 100%;

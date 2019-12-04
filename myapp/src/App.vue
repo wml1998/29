@@ -1,9 +1,29 @@
 <template>
   <div id="app">
-    <router-view/>
+    <transition :name="transitionName">
+      <keep-alive>
+       <router-view class="transitionBoy"/>
+      </keep-alive>
+    </transition>
+  
   </div>
 </template>
-
+<script>
+export default {
+  data() {
+    return {
+      transitionName:"transitionLeft"
+    }
+  },
+  watch:{
+    '$route'(to,from){
+      const arr =['/type']
+      const compare=arr.indexOf(to.path)>arr.indexOf(from.path)
+      this.transitionName=compare?'transitionRight':'transitionLeft'
+    }
+  }
+}
+</script>
 <style lang="scss">
 *{
   padding: 0;
@@ -20,5 +40,20 @@ html,body,#app{
   width: 100%;
   height: 100%
 }
+  .transitionBoy{
+    transition:all 0.15s ease
+  }
+  .transitionLeft-enter{
+    transform:translate(100%,0)
+  }
+  .transitionLeft-leave-active{
+    transform: translate(-100%,0)
+  }
+  .transitionRight-enter{
+    transform:translate(0,100%)
+  }
+  .transitionRight-leave-active{
+    transform:translate(0,-100%)
+  }
 
 </style>

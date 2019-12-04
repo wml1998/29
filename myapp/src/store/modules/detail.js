@@ -5,7 +5,8 @@ const state={
     desclist: {},   // 元数据
     current: '全部',    // 当前选择年份 
     year: ['全部'],     // 所有的年份
-    currentList: [],    // 当前年份的车款数据  
+    currentList:[],    // 当前年份的车款数据 
+    newarr:[] 
 }
 
 // 给车款排序
@@ -60,9 +61,11 @@ const mutations={
             state.desclist = payload.data
             /** 处理数据 */
             // 1.拿到年份
+            let yearArr=["全部"]
             let year = payload.data.list.map(item=>item.market_attribute.year);
-            state.year = state.year.concat([...new Set(year)]);
-
+            yearArr = yearArr.concat([...new Set(year)]);
+            state.newarr=yearArr
+            console.log(state.newarr)
             // 2.拿到当前选择年份的数据
             let currentList = [];
             if (state.current == '全部'){
@@ -70,14 +73,12 @@ const mutations={
             }else{
                 currentList = payload.data.list.filter(item=>item.market_attribute.year == state.current);
             }
-
             // 3.给当前年份数据排序
             currentList = sortCarList(currentList);
-
             // 4.聚合key相同的车款数据
             currentList = formatCarList(currentList);
             state.currentList = currentList;
-            console.log('currentList...', currentList);
+            console.log('currentList...====', currentList);
         }else{
             alert(payload.msg)
         }
@@ -87,7 +88,7 @@ const mutations={
 const actions = {
     async getDescList({commit},payload){
         let res = await getdesclist(payload)
-        console.log("getdesclist", res.data)
+        // console.log("getdesclist", res.data)
         commit("updateDesclist", res)
     }
 }
