@@ -1,6 +1,4 @@
 import {getMasterBrandList,getRightlist,getdesclist} from  "../../services/index"
-import { get } from "http";
-import { isRegExp } from "util";
 // import {getRightlist} from "../../services/index"
 
 //定义一个list数据
@@ -9,7 +7,6 @@ const state={
     arr:[],
     rightlist:[],
     rightarr:[],
-    desclist:[]
 }
 //定义一个mutatios的方法
 
@@ -35,16 +32,7 @@ const mutations={
             }else{
                 alert(payload.msg)
             }
-    },
-   desclist(state,payload){
-            if(payload.code==1){
-               state.desclist=payload.data
-            }else{
-                alert(payload.msg)
-            }
     }
-    
-
 }
 const actions={
     async getMasterBrandList({commit},payload){
@@ -56,11 +44,6 @@ const actions={
         let res=await getRightlist(payload)
         console.log(res.data,"就是我当前根据点击的下标找到属于我的代码")
         commit("getright",res)
-    },
-    async getdesclist({commit},payload){
-        let res=await getdesclist(payload)
-        console.log("getdesclist",res.data)
-        commit("desclist",res)
     }
 }
 
