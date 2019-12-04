@@ -98,6 +98,16 @@
     position: absolute;
     right: .1rem;
     top: .22rem;
+    button{
+    border-radius: .1rem;
+    font-size: .32rem;
+    height: .7rem;
+    width: 3.45rem;
+    border: none;
+    box-sizing: border-box;
+    background: #00afff;
+    color: #fff
+    }
 
     // height:90%;
     // background: #00afff;
