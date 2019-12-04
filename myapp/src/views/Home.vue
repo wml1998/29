@@ -1,5 +1,10 @@
 <template>
    <div class="home" v-if="arr" >
+     <div class="homewrap" 
+       @touchstart="start"
+       @touchmove="move"
+       @touchend="end"
+     >
            <div class="rightcomponent" ref="rightstyle"> 
              <Right :rightarr="rightarr" :flag="this.flag"  />
            </div>
@@ -13,10 +18,11 @@
           </div>
           <div class="right">
             <li v-for="(item,index) in arr" :key="index">
-               <span @click='fun(item.letter)'>
+               <span>
                  {{item.letter}}
                </span> 
             </li>
+          </div>
           </div>
     </div>
 </template>
@@ -39,6 +45,11 @@ data() {
   components:{
 Right
   },
+  watch: {
+    // arr:function(){
+    //   this.offsetTop=(window.innerHeight-this.$refs.container.offsetHeight)/2
+    // }
+  },
 methods: {
     ...mapActions({
         getMasterBrandList:"home/getMasterBrandList",
@@ -50,11 +61,19 @@ methods: {
             this.flag=true;
             this.$refs.rightstyle.style.width = "75%";
 
+      },    
+      start(e){
+        // console.log(e,"start====e")
+        // let y=e.touches[0].screenY-this.offsetTop
+        // let index=Math.floor(y/18)
+        // console.log("start....",e.touches[0],this.arr[index])
       },
-      fun(id){
-        console.log(id)
+      move(e){
+            //  console.log(e,"move====e")
+      },
+      end(e){
+  // console.log(e,"end====e")
       }
-    
 },
 created() {
     this.getMasterBrandList()

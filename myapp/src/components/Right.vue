@@ -4,7 +4,7 @@
           <p class="title">{{item.GroupName}}</p>
           <ul class="uls">
                <li  v-for="(itemlist,itemindex) in item.GroupList" :key="itemindex" @click="detail(itemlist.SerialID)">
-                     <img :src="itemlist.Picture" alt="">
+                     <img v-lazy="itemlist.Picture" alt="">
                      <div>
                         <p>{{itemlist.AliasName}}</p>
                         <p class="price">{{itemlist.DealerPrice}}</p>
@@ -22,10 +22,10 @@ export default {
        props:["rightarr","flag"],
        methods: {
            detail(SerialID){
-                //  this.$router.push({
-                //        path:"/home/car",
-                //        query:{id:SerialID}
-                //    })
+                 this.$router.push({
+                       path:"/home/car",
+                       query:{id:SerialID}
+                   })
                }
            },
        data() {
