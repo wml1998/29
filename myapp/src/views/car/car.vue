@@ -1,157 +1,80 @@
 <template>
-    <div class="xaingqing">
-        <div class="cont">
-          <!-- {{total}} -->
-              <div class="img">
-                  <div class="spa">
-                    <img :src="bannerimg" alt="" @click="tabImg()">
-                    <span>{{imgUrl}}</span>
-                  </div>
-                  <div class="cen">
-                      <div class="left">
-                        <p>价格:{{jiagelan.dealer_price}}</p> 
-                        <p>指导价:{{jiagelan.official_refer_price}}</p>
-                      </div>
-                      <div class="right">
-                        <button @click="btnClick()">{{btn}}</button>
-                      </div>  
-                  </div> 
-              </div>
-              
-            <div>
-                <p v-for="(item,index) in bottomlist" :key="index">{{item.car_name}} </p>
-              </div>
+  <div class="car">
+    <!-- 顶层的展示banner栏 -->
+    <div class="content">
+      <div class="img">
+        <img :src="desclist.CoverPhoto" alt />
+        <span class="data-hover">{{desclist.pic_group_count}}张照片</span>
+      </div>
+      <div class="info">
+        <div>
+          <p>{{desclist.market_attribute.dealer_price}}</p>
+          <p>指导价:{{desclist.market_attribute.official_refer_price}}</p>
         </div>
-        <div class="button" @click="btnClick()">
-            <p>询问底价</p>
-            <p>本地经销商为你报价</p>
-        </div>
+        <div>{{desclist.BottomEntranceTitle}}</div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import axios from "axios"
+import { mapState, mapActions } from "vuex";
 export default {
-    data() {
-        return {
-            SerialID:this.$route.query.id,
-            total:[],
-            jiagelan:"",
-            bottomlist:[],
-            bannerimg:"",
-            imgUrl:"",
-            btn:""
-        }
-    },
-    created() {
-        let SerialID=this.SerialID
-             axios.get("https://baojia.chelun.com/v2-car-getInfoAndListById.html",{params:{SerialID}}).then(res=>{
-                 this.total=res.data
-                 console.log( this.total.data)
-                 console.log(this.total.data.market_attribute,"======")
-                 this.jiagelan=this.total.data.market_attribute
-                 this.bottomlist=this.total.data.list
-                 this.bannerimg=this.total.data.CoverPhoto
-                 this.imgUrl=this.total.data.pic_group_count
-                 this.btn=this.total.data.BottomEntranceTitle
-             })
-    },
-    methods: {
-        tabImg(){
-            // alert(111)
-        },
-        btnClick(){
-            this.$router.push("/home/desc")
-        }
-    }
-
-}
+  computed: {
+    ...mapState({
+      desclist: state => state.home.desclist
+    })
+  },
+  data() {
+    return {};
+  },
+  created() {
+    this.getdesclist(this.$route.query.id);
+  },
+  methods: {
+    ...mapActions({
+      getdesclist: "home/getdesclist"
+    })
+  }
+};
 </script>
 
 <style lang="scss">
-      .xaingqing{
-          width: 100%;
-          height: 100%;
-          .cont{
-              width: 100%;
-              height: 100%;
-              overflow: auto;
-          }   
+.car {
+  width: 100%;
+  height: 100%;
+  .content {
+    height: 100%;
+    .img {
+      position: relative;
+      height: 3.29rem;
+      overflow: hidden;
+      .data-hover {
+        position: absolute;
+        bottom: 0.3rem;
+        right: 0.3rem;
+        color: #fff;
+        padding: 1px 0.1rem;
+        border-radius: 0.2rem;
+        background: rgba(0, 0, 0, 0.6);
+        font-size: 0.24rem;
+        z-index: 999;
       }
-      .img{
-          width: 100%;
-          height: 300px;
-          border-bottom: 1px solid #000;
-          .spa{
-              width: 100%;
-              height: 220px;
-              position: relative;
-              img{
-                  width: 100%;
-                  height: 100%;
-              }
-              span{
-                  display: block;
-                  position: absolute;
-                  right: 20px;
-                  bottom: 20px;
-                  background: #999;
-                  border-radius: 10px;
-              }
-          }
-          .cen{
-             .left{
-                 width: 200px;
-                 float: left;
-                 padding-left: 10px;
-                 p{
-                     &:nth-child(1){
-                         color: #f00;
-                         font-size: 20px;
-                         line-height: 40px;
-                     }
-                     &:nth-child(2){
-                         color: #666;
-                         font-size: 17px;
-                         line-height: 15px;;
-                     }
-                 }
-             }
-             .right{
-                 float: right;
-                 background: #eee;
-                 button{
-                     width: 170px;
-                     height: 40px;
-                     background: #09f;
-                     display: block;
-                     border: none;
-                     margin-top: 10px;
-                     margin-right: 5px;;
-                     border-radius: 5px;
-                     color: #fff;
-                 }
-             }
-          }
+      img {
+        width: 100%;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        position: absolute;
       }
-      .button{
-          width: 100%;
-          height: 50px;
-          border: none;
-          color: #fff;
-          position: fixed;
-          bottom: 0;
-          background: #0099ff;
-          text-align: center;
-          p{
-              &:nth-child(1){
-                font-size: 18px;
-              }
-              &:nth-child(2){
-                font-size: 14px;
-              }
-          }
-      }
-
+    }
+    .info {
+      padding: 0.36rem 0.2rem 0.3rem;
+      background: #fff;
+      position: relative;
+      display: flex;
+    }
+  }
+}
 </style>
 
