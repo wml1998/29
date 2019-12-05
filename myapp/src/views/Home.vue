@@ -1,7 +1,9 @@
 <template>
   <div class="home" v-if="arr">
-    <div class="homewrap">
-      <div class="rightcomponent" ref="rightstyle">
+  
+      <div class="rightcomponent"  ref="rightstyle" 
+        @touchstart="dragStart"
+      >
         <Right :rightarr="righAarr" :flag="this.flag" />
       </div>
       <div v-for="(item,index) in arr" :key="index" :id="item.letter" class="ele">
@@ -13,16 +15,8 @@
           </li>
         </ul>
       </div>
-      <!-- <div class="right"
-          ref="container"
-     
-         >
-        <li v-for="(item,index) in arr" :key="index">
-          <span>{{item.letter}}</span>
-        </li>
-      </div> -->
       <Repertory @Parent_jump="jumps" :arr="this.arr"></Repertory>
-    </div>
+  
   </div>
 </template>
 <script>
@@ -45,48 +39,35 @@
         flag: false
       };
     },
+    //注册我的组件
     components: {
       Right,
       Repertory
     },
-    // watch: {
-    //     arr:function(){
-    //       this.$nextTick(()=>{
-    //         this.offsetTop=(window.innerHeight-this.$refs.container.offsetHeight)/2
-    //         console.log('offsetTop...',this.offsetTop)
-    //       })
-    //     }
-    // },
     methods: {
       ...mapActions({
         getMasterBrandList: "home/getMasterBrandList",
         getRightlist: "home/getRightlist"
       }),
       rightIndex(MasterID) {
-        console.log(MasterID);
+        // console.log(MasterID);
         this.getRightlist(MasterID);
         this.flag = true;
         this.$refs.rightstyle.style.width = "75%";
       },
       jumps(item){
-        // console.log(item.letter,"22222222222")
         this.iScroller=item.letter;
-        // document.querySelector(".homewrap").scrollTop=333
-        //   console.log(document.querySelector(`#${item.letter}` ).offsetTop)
-        // document.querySelector(".homewrap").scrollTop = document.querySelector(
-        // `#${item.letter}`).offsetTop
-        console.log(document.querySelector(
-        `#${item.letter}`).offsetTop,"11111111")
-
-        console.log()
-        // document.querySelector(".homewrap").scrollTop=document.querySelector(
-        // `#${item.letter}`).offsetTop
+        document.querySelector(".home").scrollTop=document.querySelector(
+        `#${item.letter}`).offsetTop
+      },
+      dragStart(e){
+        //  console.log(  document.querySelector(".rightcomponent"))
+         let initbox=document.querySelector(".rightcomponent")
+         console.log(e.target)
+        //  let disX = e.target.clientX - initbox.offsetLeft;
+        //  let disY = e.target.clientY - initbox.offsetTop;
+         console.log(e.target.clientX )
       }
-      // touchStart(e){
-      //   let y=e.touches[0].pageY-this.offsetTop
-      //   let index=Math.floor(y/18)
-      //   console.log('start...',e.touches[0],this.arr[index])
-      // }
     },
     created() {
       this.getMasterBrandList();
@@ -114,6 +95,7 @@
     background: #fff;
     z-index: 100;
     height: 100%;
+    // transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,99,0,0,1);
     box-shadow: 0 0 0.5rem #eee;
   }
   .wrap {
