@@ -3,7 +3,7 @@
     <!-- 顶层的展示banner栏 -->
     <div class="content">
       <!-- 装载图片 -->
-      <div class="img">
+      <div class="img" @click="jump">
         <img :src="descList.CoverPhoto" alt>
         <span class="data-hover">{{descList.pic_group_count}}张照片</span>
       </div>
@@ -61,7 +61,12 @@ export default {
   methods: {
     ...mapActions({
       getDescList: "detail/getDescList"
-    })
+    }),
+    jump(){
+         this.$router.push({
+           path:""
+         })
+    }
   }
 };
 </script>
