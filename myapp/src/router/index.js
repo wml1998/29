@@ -42,6 +42,9 @@ const routes = [
   }, {
     path: "/home/img",
     component: () => import("../views/img/img.vue")
+  },{
+       path:"/home/color",
+       component:()=>import("../views/color/color.vue")
   },
   {
     path: "*",

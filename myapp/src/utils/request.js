@@ -1,29 +1,29 @@
 import axios from "axios"
-const instance=axios.create({
-    baseURL:"https://baojia.chelun.com",
-    timeout:1000
+const instance = axios.create({
+    baseURL: "https://baojia.chelun.com",
+    timeout: 1000
 })
-instance.interceptors.request.use(function(config){
+instance.interceptors.request.use(function (config) {
     return config
-  },function (err){
-      return Promise.reject(console.log(error)
-      )
-  }
+}, function (err) {
+    return Promise.reject(console.log(error)
+    )
+}
 )
-instance.interceptors.response.use(function(response){
-    if(response.status==200){
+instance.interceptors.response.use(function (response) {
+    if (response.status == 200) {
         return response.data
-    }else{
+    } else {
         this.$notify({
-            type:"warning",
-            message:response.text
+            type: "warning",
+            message: response.text
         })
     }
 },
-    function(error){
+    function (error) {
         this.$notify({
-            type:"warning",
-            message:error
+            type: "warning",
+            message: error
         })
     }
 )

@@ -3,7 +3,7 @@
     <!-- 顶层的展示banner栏 -->
     <div class="content">
       <!-- 装载图片 -->
-      <div class="img" @click="jump">
+      <div class="img" @click="jumpimg()">
         <img :src="descList.CoverPhoto" alt>
         <span class="data-hover">{{descList.pic_group_count}}张照片</span>
       </div>
@@ -20,25 +20,27 @@
       </div>
       <div class="car-list">
         <div class="c-type">
-          <span v-for="(item,index) in year" :key="index">{{item}}</span>
+          <span v-for="(item,index) in year" @click="chengeyear(item)" :key="index">{{item}}</span>
         </div>
         <div>
           <div v-for="(item,index) in currentList" :key="index">
             <p class="every-title">{{item.key}}</p>
             <ul class="showlist">
-                <li class="listyle" v-for="(item,index) in item.list" :key="index">
-                    <p class="p-first">{{item.market_attribute.year}}款{{item.car_name}}</p>
-                    <p class="p-twice">{{item.horse_power}}马力{{item.gear_num}}档{{item.trans_type}}</p>
-                    <p class="price"><span class="offerprice">指导价  {{item.market_attribute.official_refer_price}}</span><span class="realprice">{{item.market_attribute.dealer_price_min}}起</span></p>
-                    <button class="bottombutton">询问底价</button>
-                </li>
+              <li class="listyle" v-for="(item,index) in item.list" :key="index">
+                <p class="p-first">{{item.market_attribute.year}}款{{item.car_name}}</p>
+                <p class="p-twice">{{item.horse_power}}马力{{item.gear_num}}档{{item.trans_type}}</p>
+                <p class="price">
+                  <span class="offerprice">指导价 {{item.market_attribute.official_refer_price}}</span>
+                  <span class="realprice">{{item.market_attribute.dealer_price_min}}起</span>
+                </p>
+                <button class="bottombutton">询问底价</button>
+              </li>
             </ul>
           </div>
         </div>
       </div>
     </div>
     <div class="bottom-clumn">
-
       <p class="answer">询问底价</p>
       <p class="answertwo">本地经销商为你报价</p>
     </div>
@@ -46,8 +48,13 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 export default {
+  data() {
+    return {
+      imgid:this.$route.query.id
+    }
+  },
   computed: {
     ...mapState({
       descList: state => state.detail.desclist,
@@ -59,12 +66,21 @@ export default {
     this.getDescList(this.$route.query.id);
   },
   methods: {
-    ...mapActions({
+    ...mapActions({//解构
       getDescList: "detail/getDescList"
     }),
-    jump(){
+    ...mapMutations({//解构
+      updatayear: "detail/updatayear"
+    }),
+    chengeyear(item) {//点击tab切换时的操作
+      this.updatayear(item);
+      this.getDescList(this.$route.query.id);
+    },
+    jumpimg(){
+         console.log(this.imgid)
          this.$router.push({
-           path:""
+           path: "/home/img",
+           query:{id:this.imgid}
          })
     }
   }
@@ -73,9 +89,9 @@ export default {
 
 <style lang="scss" scoped>
 // /deep/ 覆盖scoped的样式
-*{
-    margin: 0;
-    padding: 0
+* {
+  margin: 0;
+  padding: 0;
 }
 .car {
   width: 100%;
@@ -144,8 +160,8 @@ export default {
     color: #fff;
   }
 }
-.car-list{
-    padding-bottom: 1rem
+.car-list {
+  padding-bottom: 1rem;
 }
 .c-type {
   border-top: 0.15rem solid #f4f4f4;
@@ -154,85 +170,88 @@ export default {
   height: 0.77rem;
   line-height: 0.77rem;
   background: #fff;
-  span{
-      padding-right: .46rem
-    }
+  span {
+    padding-right: 0.46rem;
+  }
 }
-.every-title{
-    padding: 0 .2rem;
-    height: .5rem;
-    line-height: .5rem;
-    font-size: .26rem;
-    color: #999;
-    background: #f4f4f4;
-    
+.every-title {
+  padding: 0 0.2rem;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  font-size: 0.26rem;
+  color: #999;
+  background: #f4f4f4;
 }
-.listyle{
-    padding: 0 .2rem;
+.showlist {
+  .listyle:last-child {
+    border-bottom: 0;
+  }
+  .listyle {
+    padding: 0 0.2rem;
     overflow: hidden;
-    .p-twice{
-        color: #bdbdbd;
-        font-size: .26rem;
+    border-bottom: 0.18rem solid #f4f4f4;
+    .p-twice {
+      color: #bdbdbd;
+      font-size: 0.26rem;
     }
-.price{
-    text-align: right;
-    padding-bottom: .1rem;
-    font-size: .24rem;
-    color: #818181;
-    .offerprice{
-    text-align: right;
-    padding-bottom: .1rem;
-    font-size: .24rem;
-    color: #818181;
+    .price {
+      text-align: right;
+      padding-bottom: 0.1rem;
+      font-size: 0.24rem;
+      color: #818181;
+      .offerprice {
+        text-align: right;
+        padding-bottom: 0.1rem;
+        font-size: 0.24rem;
+        color: #818181;
+      }
+      .realprice {
+        font-size: 0.3rem;
+        color: #ff2336;
+        margin-left: 0.1rem;
+      }
     }
-    .realprice{
-    font-size: .3rem;
-    color: #ff2336;
-    margin-left: .1rem;
+    .bottombutton {
+      border: none;
+      border-top: 1px solid #eee;
+      width: 110%;
+      height: 0.8rem;
+      font-size: 0.32rem;
+      color: #00afff;
+      background: #fff;
+      font-weight: 500;
+      margin-left: -0.3rem;
     }
+    .p-first {
+      padding: 0.26rem 0 0.18rem;
+      font-size: 0.3rem;
+      line-height: 1;
+      color: #3d3d3d;
+    }
+  }
 }
-.bottombutton{
-        border: none;
-    border-top: 1px solid #eee;
-    width: 110%;
-    height: .8rem;
-    font-size: .32rem;
-    color: #00afff;
-    background: #fff;
+.bottom-clumn {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 99;
+  background: #3aacff;
+  height: 1rem;
+  color: #fff;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-orient: vertical;
+  flex-direction: column;
+  display: flex;
+  -webkit-box-direction: normal;
+  .answer {
+    font-size: 0.32rem;
+    margin-top: 0.12rem;
     font-weight: 500;
-    margin-left: -.3rem;
+  }
+  .answertwo {
+    font-size: 0.24rem;
+  }
 }
-.p-first{ 
-   padding: .26rem 0 .18rem;
-    font-size: .3rem;
-    line-height: 1;
-    color: #3d3d3d;}   
-}
-
-.bottom-clumn{
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    z-index: 99;
-    background: #3aacff;
-    height: 1rem;
-    color: #fff;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-orient: vertical;
-    flex-direction: column;
-     display: flex;
-    -webkit-box-direction: normal;
-    .answer{ 
-    font-size: .32rem;
-    margin-top: .12rem;
-    font-weight: 500;
-    }   
-    .answertwo{
-        font-size: .24rem
-    }
-}
-
-
 </style>
 

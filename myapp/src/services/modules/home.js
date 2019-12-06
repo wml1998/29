@@ -8,3 +8,9 @@ export let getRightlist=(MasterID)=>{
 export let getdesclist=(SerialID)=>{
     return request("/v2-car-getInfoAndListById.html",{params:{SerialID}})
 }//点感情
+export let getImgList=(SerialID)=>{
+    return request("/v2-car-getImageList.html",{params:{SerialID}})
+}
+export let getMasterSeries=(params)=>{
+    return request("/v2-car-getModelImageYearColor.html",{params})
+}
