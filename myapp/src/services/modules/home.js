@@ -7,7 +7,7 @@ export let getRightlist=(MasterID)=>{
 }//右侧抽屉的数据
 export let getdesclist=(SerialID)=>{
     return request("/v2-car-getInfoAndListById.html",{params:{SerialID}})
-}//点感情
+}//点详情
 export let getImgList=(SerialID)=>{
     return request("/v2-car-getImageList.html",{params:{SerialID}})
 }

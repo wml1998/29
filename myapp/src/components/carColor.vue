@@ -1,9 +1,10 @@
 <template>
   <div class="color">
-    <p>全部颜色</p>
+    <p class="allcollor">全部颜色</p>
     <div>
       <p class="c-type">
-        <span v-for="(item, index, key) of list" :key="index" @click="handleC(item,key)" :class="{active: curIndex==key}">{{index}}</span>
+        <span v-for="(item, index, key) of list" :key="index" @click="handleC(item,key)"
+         :class="{active: curIndex==key}">{{index}}</span>
       </p>
       <ul>
         <li v-for="(v,i) in colorData" :key="i" @click="clickColor(v.ColorId)">
@@ -32,10 +33,10 @@ export default {
    mounted(){
     // let Seriid = this.Seriid
     let SerialID=this.Seriid
-    console.log(this.Seriid)
+    // console.log(this.Seriid)
     axios.get('http://baojia.chelun.com/v2-car-getModelImageYearColor.html',{params:{SerialID}}).then(res=>{
       // window.console.log(res.data.data)
-      console.log(res,"ssssssssssss")
+      // console.log(res,"ssssssssssss")
       this.list=res.data.data
       let obj=JSON.parse(JSON.stringify(this.list))
       let arr=Object.values(obj)
@@ -62,37 +63,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+*{
+  margin: 0;
+  padding: 0
+}
 .color {
   width: 100%;
   height: 100%;
-  background: #00f;
+  background: #f4f4f4;
 }
 .color > p {
-  margin: 7.5px 0;
-  font-size: 17px;
-  color: #00afff;
-  background: #fff;
-  text-align: center;
-  line-height: 40px;
+    margin: .15rem 0;
+    font-size: .34rem;
+    color: #00afff;
+    background: #fff;
+    text-align: center;
+    line-height: .8rem;
+    height: .8rem;
 }
+
 .color .c-type {
-  margin: 7.5px 0 0;
-  padding: 0 0 0 10px;
-  background: #fff;
-  overflow-x: scroll;
-  line-height: 38px;
+    margin-top: .15rem;
+    padding-left: .2rem;
+    font-size: .3rem;
+    line-height: .76rem;
+    height: .76rem;
+    background: #fff;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 .color .c-type span {
   font-size: 15px;
   padding: 0 21px 0 0;
 }
 .color ul {
-  background: #fff;
-  margin: 7.5px 0 0;
-  padding: 0 10px;
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
+ margin-top: .15rem;
+    padding: 0 .2rem;
+    overflow: hidden;
+    background: #fff;
 }
 .color ul li {
   color: #000;

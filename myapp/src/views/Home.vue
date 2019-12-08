@@ -1,7 +1,13 @@
 <template>
   <div class="home" v-if="arr">
     <div class="homewrap">
-      <div class="rightcomponent" ref="rightstyle">
+      <div
+        class="rightcomponent"
+        ref="rightstyle"
+        @touchstart="touchstart"
+        @touchmove="touchmove"
+        @touchend="touchend"
+      >
         <Right :rightarr="righAarr" :flag="this.flag"/>
       </div>
       <div v-for="(item,index) in arr" :key="index" :id="item.letter" class="ele">
@@ -18,14 +24,6 @@
           </li>
         </ul>
       </div>
-      <!-- <div class="right"
-          ref="container"
-     
-         >
-        <li v-for="(item,index) in arr" :key="index">
-          <span>{{item.letter}}</span>
-        </li>
-      </div>-->
       <Repertory @Parent_jump="jumps" :arr="this.arr"></Repertory>
     </div>
   </div>
@@ -34,6 +32,7 @@
 import Right from "../components/Right.vue";
 import Repertory from "../components/repertory.vue";
 import { mapActions, mapState } from "vuex";
+import { setTimeout } from "timers";
 export default {
   name: "home",
   computed: {
@@ -44,7 +43,9 @@ export default {
   },
   data() {
     return {
-      flag: false
+      flag: false,
+      startPageX: "",
+      startPageY: ""
     };
   },
   components: {
@@ -57,10 +58,11 @@ export default {
       getRightlist: "home/getRightlist"
     }),
     rightIndex(MasterID) {
-      console.log(MasterID);
+      // console.log(MasterID);
       this.getRightlist(MasterID);
       this.flag = true;
       this.$refs.rightstyle.style.width = "75%";
+      
     },
     jumps(item) {
       // console.log(item.letter,"22222222222")
@@ -72,6 +74,37 @@ export default {
       document.querySelector(".home").scrollTop = document.querySelector(
         `#${item.letter}`
       ).offsetTop;
+    },
+
+    touchstart(e) {
+      this.startPageX = e.touches[0].pageX;
+      this.startPageY = e.touches[0].pageY;
+      // console.log(e);
+      // console.log(e.touches[0].pageX)
+      // console.log(e.touches[0].pageY)
+    },
+    touchmove() {
+      // console.log(22)
+    },
+    touchend(e) {
+      let endPageX = e.changedTouches[0].clientX;
+      let endPageY = e.changedTouches[0].clientY;
+      // console.log(this.startPageY - endPageY * 1);
+      if (
+        endPageX - this.startPageX > 80 ||
+        Math.abs(this.startPageY - endPageY) < 50
+      ) {
+        this.$refs.rightstyle.style.width = "0%";
+
+        setTimeout(() => {
+          this.flag = false;
+        }, 200);
+      }
+      // console.log(e.changedTouches[0].clientX)
+      // console.log(e.changedTouches[0].clientY)
+    },
+    officialVanish() {
+      this.amendstatefalse();
     }
   },
   created() {
@@ -96,7 +129,7 @@ export default {
   top: 0;
   right: 0;
   width: 0;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
   background: #fff;
   z-index: 100;
   height: 100%;
@@ -107,9 +140,9 @@ export default {
   height: 100%;
 }
 .ele {
-   ul {
-        margin: 0 0.3rem;
-   }
+  ul {
+    margin: 0 0.3rem;
+  }
 }
 .right {
   z-index: 999;

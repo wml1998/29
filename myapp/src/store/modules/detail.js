@@ -29,10 +29,6 @@ function formatCarList(list) {
         item.key = `${item.exhaust_str}/${item.max_power_str} ${item.inhale_type}`;
         return item;
     })
-    // let newList = [{
-    //     key: '',
-    //     list: []
-    // }];
     let newList = [];
     // 遍历，根据key把数据聚合一下
     list.forEach(item => {
@@ -59,15 +55,15 @@ const mutations = {
             let year = payload.data.list.map(item => item.market_attribute.year);
             yearArr = new Set(yearArr.concat([...new Set(year)]));
             state.newarr = yearArr
-            console.log(state.newarr)
+            // console.log(state.newarr)
             // 2.拿到当前选择年份的数据
             let currentList = [];
             if (state.current == '全部') {
                 currentList = payload.data.list;
-                console.log(currentList)
+                // console.log(currentList)
             } else {
                 currentList = payload.data.list.filter(item => item.market_attribute.year == state.current);
-                console.log(currentList, "当前的全部的年份车辆")
+                // console.log(currentList, "当前的全部的年份车辆")
             }
             // 3.给当前年份数据排序
             currentList = sortCarList(currentList);
@@ -88,7 +84,7 @@ const mutations = {
 const actions = {
     async getDescList({ commit }, payload) {
         let res = await getdesclist(payload)
-        console.log(res)
+        // console.log(res)
         commit("updateDesclist", res)
     },
 }

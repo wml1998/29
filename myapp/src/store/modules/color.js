@@ -40,7 +40,7 @@ const actions = {
     }
     let res = await getMasterSeries(params)
     commit('getSeries', res)
-    console.log(res)
+    // console.log(res)
   }
 }
 export default {

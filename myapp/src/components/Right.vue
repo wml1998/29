@@ -3,7 +3,7 @@
       <div class="rightcont-son"  v-for="(item,index) in rightarr.data" :key="index">
           <p class="title">{{item.GroupName}}</p>
           <ul class="uls">
-               <li  v-for="(itemlist,itemindex) in item.GroupList" :key="itemindex" @click="detail(itemlist.SerialID)">
+               <li  v-for="(itemlist,itemindex) in item.GroupList" :key="itemindex" @click="detail(itemlist.SerialID,itemlist.AliasName)">
                      <img v-lazy="itemlist.Picture" alt="">
                      <div>
                         <p>{{itemlist.AliasName}}</p>
@@ -21,11 +21,12 @@ import axios from "axios"
 export default {
        props:["rightarr","flag"],
        methods: {
-           detail(SerialID){
+           detail(SerialID,AliasName){
                  this.$router.push({
                        path:"/home/car",
                        query:{id:SerialID}
                    })
+                    localStorage.setItem("infocar",JSON.stringify(AliasName))
                }
            },
        data() {

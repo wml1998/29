@@ -17,7 +17,7 @@ const mutations = {
                     state.arr.push({ letter, newArr })
                 }
             })
-            console.log(state.arr)
+            // console.log(state.arr)
         } else {
             alert(payload.msg)
         }
@@ -34,12 +34,12 @@ const mutations = {
 const actions = {
     async getMasterBrandList({ commit }, payload) {
         let res = await getMasterBrandList()
-        console.log("res...", res)
+        // console.log("res...", res)
         commit("updateList", res)
     },
     async getRightlist({ commit }, payload) {
         let res = await getRightlist(payload)
-        console.log(res.data, "就是我当前根据点击的下标找到属于我的代码")
+        // console.log(res.data, "就是我当前根据点击的下标找到属于我的代码")
         commit("getRight", res)
     }
 }

@@ -2,7 +2,7 @@
   <div class="imgbox">
     <div class="flexwrap">
       <p class="color" @click="carcolor">颜色  </p>
-      <p class="type">车款</p>
+      <p class="type"  @click="cattype">车款</p>
     </div>
     <div class="contbox">
       <Showimg v-for="(item,index) in imgList" :item="item" :key="index"/>
@@ -49,6 +49,9 @@ export default {
          this.showColor=true,
          console.log(this.showColor)
          console.log(this.serid)
+    },
+    cattype(){
+       
     }
   }
 };

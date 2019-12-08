@@ -15,7 +15,7 @@
         </div>
         <div class="btnbox">
           <!-- 立即购买的按钮 -->
-          <button>{{descList.BottomEntranceTitle}}</button>
+          <button @click="currentcar()" class="currentbuy">{{descList.BottomEntranceTitle}}</button>
         </div>
       </div>
       <div class="car-list">
@@ -33,7 +33,7 @@
                   <span class="offerprice">指导价 {{item.market_attribute.official_refer_price}}</span>
                   <span class="realprice">{{item.market_attribute.dealer_price_min}}起</span>
                 </p>
-                <button class="bottombutton">询问底价</button>
+                <button class="bottombutton" @click="answerprice(item.car_id)">询问底价</button>
               </li>
             </ul>
           </div>
@@ -64,6 +64,8 @@ export default {
   },
   created() {
     this.getDescList(this.$route.query.id);
+    // localStorage.setItem("infocar",JSON.stringify(this.descList))
+
   },
   methods: {
     ...mapActions({//解构
@@ -77,11 +79,20 @@ export default {
       this.getDescList(this.$route.query.id);
     },
     jumpimg(){
-         console.log(this.imgid)
+        //  console.log(this.imgid)
          this.$router.push({
            path: "/home/img",
            query:{id:this.imgid}
          })
+    },
+    answerprice(id){
+
+    },
+    currentcar(){
+      localStorage.setItem("car",JSON.stringify(this.descList))
+      this.$router.push({
+        path:"/home/desc"
+      })
     }
   }
 };
@@ -221,6 +232,7 @@ export default {
       background: #fff;
       font-weight: 500;
       margin-left: -0.3rem;
+      outline: none
     }
     .p-first {
       padding: 0.26rem 0 0.18rem;
@@ -252,6 +264,9 @@ export default {
   .answertwo {
     font-size: 0.24rem;
   }
+}
+.currentbuy{
+  outline: none
 }
 </style>
 

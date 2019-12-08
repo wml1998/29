@@ -13,7 +13,7 @@ const mutations = {
             })
             return item
         })
-        console.log( state.imgList)
+        // console.log( state.imgList)
         // if (payload.code == 1) {
         //     state.rightarr = payload
         // } else {
@@ -23,9 +23,9 @@ const mutations = {
 }
 const actions = {
     async getImgList({ commit }, payload) {
-        console.log(payload,"xiabiao")
+        // console.log(payload,"xiabiao")
         let res = await getImgList(payload)
-        console.log(res.data,"wodetupian")
+        // console.log(res.data,"wodetupian")
         commit("getimglist", res.data)
     },
 }
