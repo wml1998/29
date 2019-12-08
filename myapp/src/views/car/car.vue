@@ -3,9 +3,15 @@
         <div class="cont">
           <!-- {{total}} -->
               <div class="img">
+<<<<<<< HEAD
                   <div class="spa">
                     <img :src="bannerimg" alt="" @click="tabImg()">
                     <span>{{imgUrl}}</span>
+=======
+                  <div class="spa"  @click="tabImg(rightnowid)">
+                    <img :src="bannerimg" alt="">
+                    <span >{{imgcount}}张照片</span>
+>>>>>>> d608a007bba367065075a71c7dbee5fe03dcee8c
                   </div>
                   <div class="cen">
                       <div class="left">
@@ -13,6 +19,7 @@
                         <p>指导价:{{jiagelan.official_refer_price}}</p>
                       </div>
                       <div class="right">
+<<<<<<< HEAD
                         <button @click="btnClick()">询问底价</button>
                       </div>  
                   </div> 
@@ -25,8 +32,24 @@
               </div>
         </div>
         <div class="button" @click="btnClick()">
+=======
+                        <button class="answer">询问底价</button>
+                      </div>  
+                  </div> 
+              </div>
+              
+               <div class="outbox">
+                <div v-for="(item,index) in bottomlist" :key="index">
+                    <p>{{item.car_name}}</p>
+                    <p><span>{{item.horse_power}}马力{{item.gear_num}}档双离合</span></p>
+                    <p> <span>指导价{{item.market_attribute.official_refer_price}} </span>  <span>{{item.market_attribute.dealer_price_min}}起</span> </p>
+                    <div class="dijia"><button >询问底价</button></div>
+                </div>
+               </div>
+        </div>
+        <div class="wenjia">
+>>>>>>> d608a007bba367065075a71c7dbee5fe03dcee8c
             <p>询问底价</p>
-            <p>本地经销商为你报价</p>
         </div>
     </div>
 </template>
@@ -41,9 +64,14 @@ export default {
             jiagelan:"",
             bottomlist:[],
             bannerimg:"",
+<<<<<<< HEAD
             listdata:["全部","2019"],
             curIndex:0,
             imgUrl:""
+=======
+            imgcount:"",
+            rightnowid:""
+>>>>>>> d608a007bba367065075a71c7dbee5fe03dcee8c
         }
     },
     created() {
@@ -51,10 +79,11 @@ export default {
              axios.get("https://baojia.chelun.com/v2-car-getInfoAndListById.html",{params:{SerialID}}).then(res=>{
                  this.total=res.data
                  console.log( this.total.data)
-                 console.log(this.total.data.market_attribute,"======")
+                 console.log(this.total.data.list,"ssssss")
                  this.jiagelan=this.total.data.market_attribute
-                 this.bottomlist=this.total.data.list
+                 this.bottomlist =this.total.data.list
                  this.bannerimg=this.total.data.CoverPhoto
+<<<<<<< HEAD
                  this.imgUrl=this.total.data.pic_group_count
              })
     },
@@ -64,6 +93,21 @@ export default {
         },
         clickTab(index){
             this.curIndex = index;
+=======
+                 this.imgcount=this.total.data.pic_group_count
+                 this.rightnowid=this.total.data.SerialID
+             })
+    },
+    methods: {
+        tabImg(id){
+            console.log(id)
+            this.$router.push({
+                path:"/home/img",
+                query:{
+                    SerialID:id
+                }
+            })
+>>>>>>> d608a007bba367065075a71c7dbee5fe03dcee8c
         }
     }
 
@@ -78,6 +122,7 @@ export default {
               width: 100%;
               height: 100%;
               overflow: auto;
+            
           }   
       }
       .img{
@@ -102,6 +147,14 @@ export default {
               }
           }
           .cen{
+              background: #fff;
+              display: flex;
+              width: 100%;
+              margin: 0 auto;
+            
+              div{
+                  width: 50%
+              }
              .left{
                  width: 200px;
                  float: left;
@@ -121,9 +174,8 @@ export default {
              }
              .right{
                  float: right;
-                 background: #eee;
                  button{
-                     width: 170px;
+                     width: 95%;
                      height: 40px;
                      background: #09f;
                      display: block;
@@ -132,14 +184,21 @@ export default {
                      margin-right: 5px;;
                      border-radius: 5px;
                      color: #fff;
+                     outline: none
                  }
              }
           }
       }
-      .button{
+      .wenjia{
           width: 100%;
           height: 50px;
           border: none;
+<<<<<<< HEAD
+=======
+          line-height: 50px;
+          background: rgb(34, 177, 243);
+          text-align: center;
+>>>>>>> d608a007bba367065075a71c7dbee5fe03dcee8c
           color: #fff;
           position: fixed;
           bottom: 0;
@@ -158,9 +217,35 @@ export default {
           }
          
       }
+<<<<<<< HEAD
       .c-type{
           width: 100%;
           height: 50px;
+=======
+      .downbox{
+             width: 100%;
+             height: 2rem;
+             position: fixed;
+             bottom: 0;
+             left: 0
+>>>>>>> d608a007bba367065075a71c7dbee5fe03dcee8c
+      }
+      .dijia{
+          width: 100%;
+          height: .7rem;
+          background: #fff;
+      
+          button{
+              background: #ffffff;
+              width: 100%;
+              height: 100%;
+              border: none;
+              outline: none;
+            color: rgb(34, 177, 243);
+          }
+      }
+      .outbox{
+          padding-bottom: 50px
       }
 
 </style>
