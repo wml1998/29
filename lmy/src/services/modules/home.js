@@ -9,3 +9,8 @@ export let getMasterBrandList=()=>{
 export let getMakeList=(MasterID)=>{
     return request("v2-car-getMakeListByMasterBrandId.html",{params:{MasterID}})
 }
+
+//获取详细的信息
+export let getdesclist=(SerialID)=>{
+    return request("/v2-car-getInfoAndListById.html",{params:{SerialID}})
+}

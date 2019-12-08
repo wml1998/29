@@ -53,11 +53,12 @@ export default {
     },
     ...mapActions({
        getMasterBrandList: 'home/getMasterBrandList',
-       getMakeList: 'home/getMakeList'
+       getMakeList: 'home/getMakeList',
+       
     })
   },
   created(){
-    // console.log("$store...", this.$store),
+    // console.log("$store...", this.$store),3
      this.getMasterBrandList();
   }
 }

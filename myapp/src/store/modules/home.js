@@ -1,6 +1,5 @@
 import {getMasterBrandList,getRightlist,getdesclist} from  "../../services/index"
-import { get } from "http";
-import { isRegExp } from "util";
+
 // import {getRightlist} from "../../services/index"
 
 //定义一个list数据

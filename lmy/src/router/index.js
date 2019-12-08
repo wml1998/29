@@ -23,6 +23,10 @@ const routes = [
     component:()=>import("../views/desc/desc")
   },
   {
+    path:"/home/img",
+    component:()=>import("../views/img/img")
+  },
+  {
     path:"*",
     redirect:"/home"
   }
