@@ -10,27 +10,6 @@
 import { mapState, mapActions, mapMutations } from "vuex";
 import axios from "axios";
 export default {
-<<<<<<< HEAD
-       created() {
-           axios.get("https://baojia.chelun.com/h2-submit-lowprice.html").then(res=>{
-            //    console.log(res)
-            if(res.data.code==-2){
-                
-            }else{
-                alert(res.data.msg)
-            }
-           })
-       },
-       methods: {
-           
-       },
-       data() {
-           return {
-               
-           }
-       },
-}
-=======
   computed: {
 
   },
@@ -46,7 +25,6 @@ export default {
    }
  },
 };
->>>>>>> cd1c62e8e310d21a6f4cc397f04d99e8c1fabb1f
 </script>
 
 <style>
