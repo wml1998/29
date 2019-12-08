@@ -1,152 +1,108 @@
 <template>
-  <div class="home" v-if="arr">
-    <div class="homewrap" @touchstart="start" @touchmove="move" @touchend="end">
-      <div class="rightcomponent" ref="rightstyle">
-        <Right :rightarr="rightarr" :flag="this.flag" />
-      </div>
-      <div v-for="(item,index) in arr" :key="index" :id="item.letter" class="ele">
-        <p>{{item.letter}}</p>
-        <ul>
-          <li
-            v-for="(item,index) in item.newArr"
-            :key="index"
-            class="item"
-            @click="rightindex(item.MasterID)"
-          >
-            <img v-lazy="item.CoverPhoto" alt />
-            <span>{{item.Name}}</span>
-          </li>
-        </ul>
-      </div>
-      <div class="right">
-        <li v-for="(item,index) in arr" :key="index">
-          <span>{{item.letter}}</span>
-        </li>
-      </div>
-    </div>
+  <div class="home">
+       <div v-for="(item,index) in arr" :key="index" :id='item.letter' class="ele"> 
+             <h4>{{item.letter}}</h4>
+             <ul>
+                 <li v-for="(item,index) in item.newarr" :key="index" class="item" 
+                   @click="getRightlist(item.MasterID)"
+                   >
+                   <img :src='item.CoverPhoto' alt=""> <span>{{item.Name}}</span> 
+                 </li>
+             </ul>
+        </div>
+        <div class="right">
+            <li v-for="(item,index) in arr" :key="index">
+               <span>
+                 {{item.letter}}
+               </span> 
+            </li>
+        </div>
+      <Right :flag="this.flag" class="rightList"/>
   </div>
 </template>
+
 <script>
-import Right from "../components/Right.vue";
-import { mapActions, mapState } from "vuex";
+// @ is an alias to /src
+import {mapActions,mapState} from "vuex"
+import Right from "../components/right"
+
 export default {
-  name: "home",
-  computed: {
-    ...mapState({
-      arr: state => state.home.arr,
-      rightarr: state => state.home.rightarr
-    })
-  },
-  data() {
+  name: 'home',
+  data(){
     return {
-      flag: false
-    };
-  },
-  components: {
-    Right
-  },
-  watch: {
-    // arr:function(){
-    //   this.offsetTop=(window.innerHeight-this.$refs.container.offsetHeight)/2
-    // }
-  },
-  methods: {
-    ...mapActions({
-      getMasterBrandList: "home/getMasterBrandList",
-      getRightlist: "home/getRightlist"
-    }),
-    rightindex(MasterID) {
-      console.log(MasterID);
-      this.getRightlist(MasterID);
-      this.flag = true;
-      this.$refs.rightstyle.style.width = "75%";
-    },
-    start(e) {
-      // console.log(e,"start====e")
-      // let y=e.touches[0].screenY-this.offsetTop
-      // let index=Math.floor(y/18)
-      // console.log("start....",e.touches[0],this.arr[index])
-    },
-    move(e) {
-      //  console.log(e,"move====e")
-    },
-    end(e) {
-      // console.log(e,"end====e")
+      clickindex:"",
+      flag:false,
     }
   },
-  created() {
-    this.getMasterBrandList();
-    // this.getRightlist()
+  components:{
+    Right
+  },
+  computed:{
+    ...mapState({
+      arr:state=>state.home.arr,
+    })
+    
+  },
+  methods:{
+    getRightlist(MasterID){
+      console.log(MasterID)
+       this.flag=true
+      //  console.log(this.flag,"================")
+       this.getMakeList(MasterID);
+   
+    },
+    ...mapActions({
+       getMasterBrandList: 'home/getMasterBrandList',
+       getMakeList: 'home/getMakeList',
+       
+    })
+  },
+  created(){
+    // console.log("$store...", this.$store),3
+     this.getMasterBrandList();
   }
-};
+}
 </script>
 <style lang="scss" scoped>
-* {
+*{
   margin: 0;
   padding: 0;
   list-style: none;
   text-decoration: none;
 }
-.home {
+.home{
   width: 100%;
   height: 100%;
   overflow-y: scroll;
 }
-.rightcomponent {
+.right{
   position: fixed;
-  top: 0;
-  right: 0;
-  width: 0;
-  transition: all 0.2s ease;
-  background: #fff;
-  z-index: 100;
-  height: 100%;
-  box-shadow: 0 0 0.5rem #eee;
-}
-
-.wrap {
-  width: 100%;
-  height: 100%;
-}
-.ele {
-  ul {
-    margin: 0 0.3rem;
-  }
-}
-.right {
-  z-index: 999;
-  position: fixed;
-  right: 0;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-  padding-left: 0.2rem;
-  li {
-    font-size: 0.24rem;
-    color: #666;
-    font-weight: 500;
-    padding: 0.02rem 0.1rem;
-  }
-}
-.home p {
-  font-size: 0.28rem;
-  line-height: 0.4rem;
-  background: #f4f4f4;
-  padding-left: 0.3rem;
-  color: #aaa;
-}
-
-.item {
   display: flex;
-  height: 1rem;
-  border-bottom: 1px solid #ddd;
-  align-items: center;
-  span {
-    font-size: 0.32rem;
-    margin-left: 0.4rem;
-  }
-  img {
-    height: 0.8rem;
-  }
+  flex-direction: column;
+  right: 15px;
+  top: 120px;
+  
+ }
+ .rightList{
+   top: 0;
+   right: 0;
+ }
+.home h4{
+  width: 100%;
+  height: 0.5rem;
+  background: #ccc;
+  line-height: 28px;
+}
+.home .item img{
+   width: .6rem;
+   margin: .1rem;
+}
+.home .item{
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+}
+.item{
+  display: flex
 }
 </style>
