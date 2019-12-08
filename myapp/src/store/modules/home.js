@@ -1,65 +1,48 @@
-import {
-    getMasterBrandList,
-    getMakeList
-} from "../../services/modules/home"
-
+import { getMasterBrandList, getRightlist, getdesclist } from "../../services/index"
+//定义一个list数据
 const state = {
-    arr: [],
     list: [],
-    newarr: [],
-    rightArr: [],
+    arr: [],
+    rightlist: [],
+    rightarr: [],
 }
+//定义一个mutatios的方法
 const mutations = {
     updateList(state, payload) {
-        state.list = payload;
         if (payload.code == 1) {
             payload.data.map((item, index) => {
-                let letter = item.Spelling[0]
-                let newarr = payload.data.filter(item => item.Spelling[0] == letter)
+                let letter = item.Spelling[0];
+                let newArr = payload.data.filter(item => item.Spelling[0] == letter)
                 if (state.arr.findIndex(item => item.letter == letter) === -1) {
-                    state.arr.push({
-                        letter,
-                        newarr
-                    })
+                    state.arr.push({ letter, newArr })
                 }
-                // console.log(state.arr,"===============")
             })
+            // console.log(state.arr)
         } else {
-            console.log(22222)
+            alert(payload.msg)
         }
     },
-    getRightList(state, payload) {
-        state.rightArr = payload
+    getRight(state, payload) {
+        state.rightlist = payload
         if (payload.code == 1) {
-            state.rightArr = payload
+            state.rightarr = payload
         } else {
             alert(payload.msg)
         }
     }
-   
-
 }
-
 const actions = {
-    // 获取的是 首页渲染的数据
-    async getMasterBrandList({
-        commit
-    }, payload) {
-        let res = await getMasterBrandList();
+    async getMasterBrandList({ commit }, payload) {
+        let res = await getMasterBrandList()
+        // console.log("res...", res)
         commit("updateList", res)
     },
-    // 获取的是 右边栏的数据
-    async getMakeList({
-        commit
-    }, payload) {
-        let res = await getMakeList(payload)
-        // console.log(res,"-------------------")
-        commit("getRightList", res)
-    },
-   
-
+    async getRightlist({ commit }, payload) {
+        let res = await getRightlist(payload)
+        // console.log(res.data, "就是我当前根据点击的下标找到属于我的代码")
+        commit("getRight", res)
+    }
 }
-
 export default {
     namespaced: true,
     state,
