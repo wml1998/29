@@ -90,6 +90,7 @@ export default {
       localStorage.setItem("car",JSON.stringify(this.descList))
       this.$router.push({
         path:"/home/desc"
+        //这个是跳转路由
       })
     }
   }
