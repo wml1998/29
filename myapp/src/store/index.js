@@ -7,6 +7,8 @@ import home from "./modules/home"
 import detail from "./modules/detail"
 import img from "./modules/img"
 import color from "./modules/color"
+import selectCity from "./modules/selectCity"
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -14,7 +16,8 @@ export default new Vuex.Store({
     home,
     detail,
     img,
-    color
+    color,
+    selectCity
   },
   plugins: [createLogger()]
 })

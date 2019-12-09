@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="bottom-clumn">
+    <div class="bottom-clumn" @click="currentcar()">
       <p class="answer">询问底价</p>
       <p class="answertwo">本地经销商为你报价</p>
     </div>

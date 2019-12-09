@@ -14,3 +14,10 @@ export let getImgList=(SerialID)=>{
 export let getMasterSeries=(params)=>{
     return request("/v2-car-getModelImageYearColor.html",{params})
 }
+export let getSelect=()=>{
+    return request("/v1-city-alllist.html")
+}
+export let getSelectRight=(provinceid)=>{
+    return request("/v1-city-alllist.html",{params:{provinceid}})
+}
+
