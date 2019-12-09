@@ -6,6 +6,7 @@
     </div>
     <div class="contbox">
       <Showimg v-for="(item,index) in imgList" :item="item" :key="index"/>
+      <!-- <div v-for="(item,index)in seriesDate" :key="index">111</div> -->
     </div>
     <transition name="scroll-top">
          <div class="wrap" v-show="showColor">
@@ -13,47 +14,71 @@
          </div>
     
     </transition>
-
+    <transition name="scroll-top">
+         <div class="wrap" v-show="showType">
+               <Showtype :showType.sync="showType" :Seriid="serid" />
+         </div>
+    
+    </transition>
+    
   </div>
 </template>
 
 <script>
 import Color from "../../components/carColor.vue";
 import Showimg from "../../components/showimg.vue";
+import Showtype from "../../components/showType.vue"
 import { mapState, mapActions } from "vuex";
 export default {
   computed: {
     ...mapState({
-      imgList: state => state.img.imgList
+            imgList: state => state.color.seriesDate,
+            EnlargementImgfalg: state=>state.color.EnlargementImgfalg,
+            colorId: state=>state.color.colorId,
+            carId: state=>state.color.carId
     })
   },
   components: {
     Showimg,
-    Color
+    Color,
+    Showtype
   },
   data() {
     return {
       showColor:false,
-      serid:this.$route.query.id
+      serid:this.$route.query.id,
+      showType:false
+    
     };
   },
   created() {
-    this.getImgList(this.$route.query.id);
+    // this.getImgList(this.$route.query.id);
     // console.log(this.$route.query.id);
   },
   methods: {
     ...mapActions({
-      getImgList: "img/getImgList"
+      getMasterSeries: "color/getMasterSeries"
     }),
     carcolor(){
-         this.showColor=true,
-         console.log(this.showColor)
-         console.log(this.serid)
+         this.showColor=true
     },
     cattype(){
-       
+        this.showType=true
     }
-  }
+  },
+  watch: {
+       colorId(){
+            this.getMasterSeries(this.serialId);
+        },
+        carId(){
+            this.getMasterSeries(this.serialId);
+        }
+  },
+  mounted() {
+         this.serialId = this.$route.query.id
+        this.getMasterSeries(this.serialId);
+      
+  },
 };
 </script>
 
