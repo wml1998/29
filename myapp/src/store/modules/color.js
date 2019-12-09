@@ -22,6 +22,7 @@ const mutations = {
   },
   setColorId(state, payload){
     state.colorId = payload;
+    console.log(state.colorId,"颜色id")
   },
   setCarId(state, payload){
     state.carId = payload;

@@ -13,13 +13,20 @@
          </div>
     
     </transition>
-
+    <transition name="scroll-top">
+         <div class="wrap" v-show="showType">
+               <Showtype/>
+         </div>
+    
+    </transition>
+    
   </div>
 </template>
 
 <script>
 import Color from "../../components/carColor.vue";
 import Showimg from "../../components/showimg.vue";
+import Showtype from "../../components/showType.vue"
 import { mapState, mapActions } from "vuex";
 export default {
   computed: {
@@ -29,12 +36,15 @@ export default {
   },
   components: {
     Showimg,
-    Color
+    Color,
+    Showtype
   },
   data() {
     return {
       showColor:false,
-      serid:this.$route.query.id
+      serid:this.$route.query.id,
+      showType:false
+    
     };
   },
   created() {
@@ -51,7 +61,8 @@ export default {
          console.log(this.serid)
     },
     cattype(){
-       
+        this.showType=true
+        // console.log(11)
     }
   }
 };
