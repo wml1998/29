@@ -64,6 +64,7 @@ export default {
   },
   created() {
     this.getDescList(this.$route.query.id);
+    console.log(this.$route.query.id,"iiiidddd")
     // localStorage.setItem("infocar",JSON.stringify(this.descList))
 
   },
@@ -84,9 +85,6 @@ export default {
            path: "/home/img",
            query:{id:this.imgid}
          })
-    },
-    answerprice(id){
-
     },
     currentcar(){
       localStorage.setItem("car",JSON.stringify(this.descList))
