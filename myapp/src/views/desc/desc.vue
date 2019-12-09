@@ -1,31 +1,318 @@
 <template>
-  <div>
-    
-    询问低价,
-    每辆车的低价
+  <div class="wrap-desc">
+    <div class="desc-top">可向多个商家咨询最低价，商家及时回复</div>
+    <div class="desc-content">
+      <div class="commit">
+        <div class="desc-left">
+          <img :src="desclist.CoverPhoto" alt />
+        </div>
+        <div class="desc-right">
+          <p>{{desclist.AliasName}}</p>
+          <p>2019款 35 TFSI 进取版 国V</p>
+        </div>
+      </div>
+      <div class="self-info">
+        <p class="tip">个人信息</p>
+        <ul>
+          <li>
+            <span>姓名</span>
+            <input type="text" placeholder="输入你的真实中文姓名" />
+          </li>
+          <li>
+            <span>手机</span>
+            <input type="tel" placeholder="输入你的真实中文姓名" />
+          </li>
+          <li>
+            <span>城市</span>
+            <span @click="tabClick">{{title}}</span>
+          </li>
+        </ul>
+        <div class="quotation">
+          <button>{{desclist.BottomEntranceTitle}}</button>
+        </div>
+      </div>
+      <div class="dealer-info">
+        <!-- {{desclist.list}} -->
+        <p class="tip">选择报价经销商</p>
+        <ul v-for="(item,index) in desclist.list" :key="index">
+          <li data-hover="hover">
+            <p>
+              <span>{{item.car_name}}</span>
+              <span>{{item.dealer_price}}万</span>
+            </p>
+            <p>
+              <span>{{item.add_press_type}}北京市朝阳区东四环南路小武基桥西南366号</span>
+              <span>{{item.link_from}}售本市</span>
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="supp-info"></div>
+    </div>
+    <transition name="scoll">
+      <div class="select-city" v-show="tag">
+        <SelectCity />
+      </div>
+    </transition>
+
+    <div class="desc-footer">
+      <button data-hover="hover">询问最低价</button>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
+import SelectCity from "../../components/selectCity";
 import axios from "axios";
 export default {
   computed: {
-
+    ...mapState({
+      tag:state=>state.selectCity.tag,
+      title:state=>state.selectCity.title
+    })
+    
   },
   created() {
-      //  console.log(this.desclist)
+    //  console.log(this.desclist)
   },
   methods: {
-  
+    ...mapMutations({
+        changeTag:'selectCity/changeTag'
+    }),
+    tabClick() {
+      this.changeTag(true);
+    }
   },
- data() {
-   return {
-      desclist:JSON.parse(localStorage.getItem("car"))
-   }
- },
+  data() {
+    return {
+      desclist: JSON.parse(localStorage.getItem("car")),
+      // flag: false
+    };
+  },
+  components: {
+    SelectCity
+  }
 };
 </script>
-
-<style>
+<style lang="scss" scoped>
+.wrap-desc {
+  width: 100%;
+  // height: 100%;
+  height: auto;
+  background: #f4f4f4;
+}
+.desc-top {
+  height: 0.6rem;
+  line-height: 0.6rem;
+  width: 100%;
+  background: #79cd92;
+  text-align: center;
+  color: #fff;
+}
+.commit {
+  width: 100%;
+  height: 2rem;
+  background: #fff;
+}
+.desc-left {
+  width: 2.5rem;
+  height: 1.4rem;
+  margin: 0.3rem;
+  float: left;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.desc-right {
+  width: 4.2rem;
+  height: 1.4rem;
+  float: left;
+  margin: 0.3rem 0rem;
+  p {
+    line-height: 0.6rem;
+  }
+}
+.self-info {
+  width: 100%;
+  height: 4.4rem;
+  background: #fff;
+  .tip {
+    padding: 0 0.2rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    font-size: 0.24rem;
+    color: #666;
+    background: #eee;
+  }
+}
+.self-info ul {
+  background: #fff;
+  padding: 0 0.2rem;
+  li {
+    font-size: 0.32rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    border-bottom: 1px solid #eee;
+    box-sizing: border-box;
+    color: #000;
+    input {
+      font-size: 0.32rem;
+      padding-right: 0.2rem;
+      width: 88%;
+      text-align: right;
+      box-sizing: border-box;
+      color: #555;
+      border: none;
+      text-indent: 0px;
+      text-shadow: none;
+      display: inline-block;
+      outline: none;
+    }
+  }
+  span:nth-child(2) {
+    display: inline-block;
+    width: 88%;
+    color: #555;
+    text-align: right;
+    box-sizing: border-box;
+  }
+  span:nth-child(2):after {
+    content: "";
+    display: inline-block;
+    padding-top: 0.16rem;
+    padding-right: 0.16rem;
+    border-top: 1px solid silver;
+    border-right: 1px solid silver;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+.quotation button {
+  font-size: 0.32rem;
+  color: #fff;
+  width: 80%;
+  background: #3aacff;
+  height: 0.7rem;
+  border-radius: 0.1rem;
+  outline: none;
+  border: none;
+  margin: 0.2rem 0.7rem;
+}
+.dealer-info {
+  background: #fff;
+  .tip {
+    padding: 0 0.2rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    font-size: 0.24rem;
+    color: #666;
+    background: #eee;
+  }
+}
+.dealer-info li {
+  position: relative;
+  padding: 0.26rem 0 0.26rem 0.54rem;
+  border-bottom: 1px solid #eee;
+  box-sizing: border-box;
+  height: 1.65rem;
+}
+.dealer-info li p:first-child {
+  font-size: 0.3rem;
+}
+.dealer-info li p:first-child span:last-child {
+  font-size: 0.24rem;
+  float: right;
+  color: red;
+  margin-right: 0.2rem;
+}
+.dealer-info li.active:before {
+  background: #3aacff;
+  border: none;
+}
+.dealer-info li:before {
+  content: "";
+  display: inline-block;
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0.05rem;
+  top: 50%;
+  -webkit-transform: translate3d(0, -50%, 0);
+  transform: translate3d(0, -50%, 0);
+}
+.dealer-info li.active:after {
+  content: "";
+  display: inline-block;
+  padding-top: 0.17rem;
+  padding-right: 0.1rem;
+  border: 2px solid #fff;
+  -webkit-transform: rotate(40deg) translate3d(0, -50%, 0);
+  transform: rotate(40deg) translate3d(0, -50%, 0);
+  position: absolute;
+  left: 0.07rem;
+  border-left: none;
+  border-top: none;
+  top: 47%;
+}
+.dealer-info li p:nth-child(2) {
+  margin-top: 0.1rem;
+  font-size: 0.24rem;
+  color: #a2a2a2;
+}
+.dealer-info li p:nth-child(2) span:first-child {
+  display: inline-block;
+  max-width: 5rem;
+}
+.dealer-info li p:nth-child(2) span:last-child {
+  display: inline-block;
+  font-size: 0.24rem;
+  float: right;
+  margin-right: 0.2rem;
+}
+.desc-footer {
+  width: 100%;
+  z-index: 99;
+}
+.desc-footer button {
+  width: 100%;
+  height: 1rem;
+  line-height: 1rem;
+  background: #3aacff;
+  text-align: center;
+  font-size: 0.34rem;
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+  border: none;
+}
+.supp-info {
+  text-align: center;
+  height: 0.4rem;
+}
+.select-city {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 888;
+  background: #fff;
+}
+.scoll-enter,
+.scoll-leave-to {
+  transform: translate3d(0, 100%, 0);
+}
+.scoll-enter-active,
+.scoll-leave-active {
+  transition: transform 0.3s linear;
+}
+.select-city .province {
+  height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
 </style>
