@@ -12,5 +12,5 @@ export let getImgList=(SerialID)=>{
     return request("/v2-car-getImageList.html",{params:{SerialID}})
 }
 export let getMasterSeries=(params)=>{
-    return request("/v2-car-getModelImageYearColor.html",{params})
+    return request("/v2-car-getImageList.html",{params})
 }

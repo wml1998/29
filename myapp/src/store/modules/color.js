@@ -9,13 +9,15 @@ const state = {
 }
 const mutations = {
   getSeries(state, payload) {
-    state.seriesDate = payload.map(item => {
+    // console.log(payload,"payload....===")
+    state.seriesDate = payload.data.map(item => {
       item.List = item.List.map(ite => {
         ite.Url = ite.Url.replace('{0}', 3)
         return ite
       })
       return item
     })
+    console.log(state.seriesDate,"=====")
   },
   imgFalg() {
     state.EnlargementImgfalg = true
@@ -25,6 +27,7 @@ const mutations = {
   },
   setCarId(state, payload){
     state.carId = payload;
+    console.log( state.carId,"====carid")
   }
 }
 const actions = {
@@ -40,7 +43,7 @@ const actions = {
     }
     let res = await getMasterSeries(params)
     commit('getSeries', res)
-    // console.log(res)
+    
   }
 }
 export default {

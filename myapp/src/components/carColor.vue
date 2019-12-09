@@ -50,6 +50,7 @@ export default {
     }),
     clickColor(colorId){
       this.setColor(colorId);
+      console.log(colorId,"0000")
       this.$emit('update:showColor', false)
       // window.history.back();
     },
