@@ -16,7 +16,7 @@
     </transition>
     <transition name="scroll-top">
          <div class="wrap" v-show="showType">
-               <Showtype :showType.sync="showType" :Seriid="serid" />
+               <Showtype :Seriid="serid" :showType.sync="showType"  />
          </div>
     
     </transition>
@@ -83,6 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .scroll-top-enter,.scroll-top-leave-to{
     transform: translate3d(0, 100%, 0)
 }
@@ -123,6 +124,7 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
+    height: 100%;
     min-height: 100%;
     background: #fff;
       z-index: 100;

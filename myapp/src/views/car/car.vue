@@ -173,6 +173,7 @@ export default {
   },
   created() {
     this.getDescList(this.$route.query.id);
+    console.log(this.$route.query.id,"iiiidddd")
     // localStorage.setItem("infocar",JSON.stringify(this.descList))
 
   },
@@ -194,10 +195,13 @@ export default {
            query:{id:this.imgid}
          })
     },
+<<<<<<< HEAD
     answerprice(id){
 >>>>>>> cd1c62e8e310d21a6f4cc397f04d99e8c1fabb1f
 
     },
+=======
+>>>>>>> wml
     currentcar(){
       localStorage.setItem("car",JSON.stringify(this.descList))
       this.$router.push({

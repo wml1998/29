@@ -27,6 +27,7 @@ const mutations = {
   },
   setCarId(state, payload){
     state.carId = payload;
+    console.log( state.carId,"====carid")
   }
 }
 const actions = {
