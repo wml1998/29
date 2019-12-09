@@ -51,7 +51,7 @@ export default {
     clickColor(colorId){
       this.setColor(colorId);
       console.log(colorId,"0000")
-      // this.$emit('update:showColor', false)
+      this.$emit('update:showColor', false)
       // window.history.back();
     },
     //点击年份切换高亮并切换数据
