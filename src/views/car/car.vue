@@ -92,6 +92,13 @@ export default {
         path:"/home/desc"
         //这个是跳转路由
       })
+    },
+    answerprice(){
+          localStorage.setItem("car",JSON.stringify(this.descList))
+      this.$router.push({
+        path:"/home/desc"
+        //这个是跳转路由
+      })
     }
   }
 };

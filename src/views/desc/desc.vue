@@ -4,7 +4,7 @@
     <div class="desc-content">
       <div class="commit">
         <div class="desc-left">
-          <img :src="desclist.CoverPhoto" alt />
+          <img :src="desclist.CoverPhoto" alt>
         </div>
         <div class="desc-right">
           <p>{{desclist.AliasName}}</p>
@@ -16,11 +16,11 @@
         <ul>
           <li>
             <span>姓名</span>
-            <input type="text" placeholder="输入你的真实中文姓名" />
+            <input type="text" placeholder="输入你的真实中文姓名">
           </li>
           <li>
             <span>手机</span>
-            <input type="tel" placeholder="输入你的真实中文姓名" />
+            <input type="tel" placeholder="输入你的真实中文姓名">
           </li>
           <li>
             <span>城市</span>
@@ -51,7 +51,7 @@
     </div>
     <transition name="scoll">
       <div class="select-city" v-show="tag">
-        <SelectCity />
+        <SelectCity/>
       </div>
     </transition>
 
@@ -68,25 +68,25 @@ import axios from "axios";
 export default {
   computed: {
     ...mapState({
-      tag:state=>state.selectCity.tag,
-      title:state=>state.selectCity.title
+      tag: state => state.selectCity.tag,
+      title: state => state.selectCity.title
     })
-    
   },
   created() {
     //  console.log(this.desclist)
   },
   methods: {
     ...mapMutations({
-        changeTag:'selectCity/changeTag'
+      changeTag: "selectCity/changeTag"
     }),
     tabClick() {
+      console.log(this.desclist);
       this.changeTag(true);
     }
   },
   data() {
     return {
-      desclist: JSON.parse(localStorage.getItem("car")),
+      desclist: JSON.parse(localStorage.getItem("car"))
       // flag: false
     };
   },

@@ -1,7 +1,7 @@
 <template>
   <div class="typebox">
     <div class="allCarType">
-      <p class="alltype">全部车款</p>
+      <p class="alltype" @click="allcartype">全部车款</p>
     </div>
 
     <div>
@@ -75,6 +75,9 @@ export default {
        this.$emit('update:showType', false)
       console.log(carId,"carid")
       
+    },
+    allcartype(){
+      this.$emit('update:showType', false)
     }
   }
 };
