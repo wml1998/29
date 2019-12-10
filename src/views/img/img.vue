@@ -1,19 +1,17 @@
 <template>
   <div class="imgbox">
     <div class="flexwrap">
-      <p class="color" @click="carcolor">颜色  </p>
-      <p class="type"  @click="cattype">车款</p>
+      <p class="color" @click="carcolor">颜色</p>
+      <p class="type" @click="cattype">车款</p>
     </div>
     <div class="contbox">
-      <Showimg v-for="(item,index) in imgList" :item="item" :key="index"/>
+      <Showimg v-for="(item,index) in imgList" :item="item" :key="index" />
     </div>
     <transition name="scroll-top">
-         <div class="wrap" v-show="showColor">
-                <Color :Seriid="serid"  :showColor.sync="showColor"/>
-         </div>
-    
+      <div class="wrap" v-show="showColor">
+        <Color :Seriid="serid" :showColor.sync="showColor" />
+      </div>
     </transition>
-
   </div>
 </template>
 
@@ -33,8 +31,8 @@ export default {
   },
   data() {
     return {
-      showColor:false,
-      serid:this.$route.query.id
+      showColor: false,
+      serid: this.$route.query.id
     };
   },
   created() {
@@ -45,28 +43,26 @@ export default {
     ...mapActions({
       getImgList: "img/getImgList"
     }),
-    carcolor(){
-         this.showColor=true,
-         console.log(this.showColor)
-         console.log(this.serid)
+    carcolor() {
+      (this.showColor = true), console.log(this.showColor);
+      console.log(this.serid);
     },
-    cattype(){
-       
-    }
+    cattype() {}
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.scroll-top-enter,.scroll-top-leave-to{
-    transform: translate3d(0, 100%, 0)
+.scroll-top-enter,
+.scroll-top-leave-to {
+  transform: translate3d(0, 100%, 0);
 }
-.scroll-top-enter-active, .scroll-top-leave-active{
-    transition: transform .3s linear;
+.scroll-top-enter-active,
+.scroll-top-leave-active {
+  transition: transform 0.3s linear;
 }
-.imgbox{
-    background: #f4f4f4
-  
+.imgbox {
+  background: #f4f4f4;
 }
 .flexwrap {
   position: fixed;
@@ -81,8 +77,8 @@ export default {
   z-index: 99;
   display: flex;
   -webkit-box-direction: normal;
-  p{
-  -webkit-box-flex: 1;
+  p {
+    -webkit-box-flex: 1;
     flex: 1;
     text-align: center;
     box-sizing: border-box;
@@ -93,14 +89,14 @@ export default {
     border-left: 1px solid #ececec;
   }
 }
-.wrap{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100%;
-    background: #fff;
-      z-index: 100;
+.wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  background: #fff;
+  z-index: 100;
 }
 // .contbox {
 // }

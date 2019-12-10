@@ -28,7 +28,7 @@
           </li>
         </ul>
         <div class="quotation">
-          <button>{{desclist.BottomEntranceTitle}}</button>
+          <button @click="alertClick">{{desclist.BottomEntranceTitle}}</button>
         </div>
       </div>
       <div class="dealer-info">
@@ -58,6 +58,21 @@
     <div class="desc-footer">
       <button data-hover="hover">询问最低价</button>
     </div>
+    <!-- <div class="alert">
+      <div class="alert-content">
+        <div class="wrap">
+          <span class="alert-title-sub" id="subTitle">
+
+          </span>
+          <span class="alert-title">
+            请输入真实的中文姓名
+          </span>
+          <span class="handok">
+            好
+          </span>
+        </div>
+      </div>
+    </div> -->
   </div>
 </template>
 
@@ -82,6 +97,9 @@ export default {
     }),
     tabClick() {
       this.changeTag(true);
+    },
+    alertClick(){
+
     }
   },
   data() {
@@ -315,4 +333,18 @@ export default {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
+// .alert {
+//     width: 100%;
+//     height: 100%;
+//     overflow: hidden;
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     bottom: 0;
+//     right: 0;
+//     z-index: 1000;
+//     background-color: rgba(0,0,0,.4);
+//     -webkit-animation: a .3s ease forwards;
+//     animation: a .3s ease forwards;
+// }
 </style>
