@@ -1,7 +1,7 @@
 <template>
   <div class="car" v-if="Object.keys(descList).length">
     <!-- 顶层的展示banner栏 -->
-    <div class="content">
+    <div class="content">   
       <!-- 装载图片 -->
       <div class="img" @click="jumpimg()">
         <img :src="descList.CoverPhoto" alt>

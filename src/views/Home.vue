@@ -30,6 +30,7 @@
 </template>
 <script>
 import Right from "../components/Right.vue";
+import Loading from "../components/loading.vue"
 import Repertory from "../components/repertory.vue";
 import { mapActions, mapState } from "vuex";
 import { setTimeout } from "timers";

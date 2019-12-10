@@ -17,7 +17,7 @@ const mutations = {
       })
       return item
     })
-    console.log(state.seriesDate,"=====")
+    // console.log(state.seriesDate,"=====")
   },
   imgFalg() {
     state.EnlargementImgfalg = true
@@ -40,9 +40,12 @@ const actions = {
     // 判断是否选择车款
     if (state.carId){
       params.CarId = state.carId;
+      console.log(state.carId,"params.carid")
     }
     let res = await getMasterSeries(params)
+    console.log(params,res,"res and params")
     commit('getSeries', res)
+    
     
   }
 }

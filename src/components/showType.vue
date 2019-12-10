@@ -50,7 +50,7 @@ export default {
   },
   created() {
     this.getDescList(this.$route.query.id);
-    console.log(this.currentList, "000999000");
+    
   },
   methods: {
     ...mapActions({

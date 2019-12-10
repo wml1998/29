@@ -75,7 +75,7 @@ const mutations = {
             // 4.聚合key相同的车款数据
             currentList = formatCarList(currentList);
             state.currentList = currentList;
-            console.log(state.currentList,"应该渲染的所有数据")
+            // console.log(state.currentList,"应该渲染的所有数据")
             // console.log('currentList...====', currentList);
         } else {
             alert(payload.msg)
@@ -83,14 +83,12 @@ const mutations = {
     },
     updatayear(state, payload) {//更新前面传过来的年份
         state.current = payload
-        //   console.log(state.current,"pppppp")
     }
 }
 
 const actions = {
     async getDescList({ commit }, payload) {
         let res = await getdesclist(payload)
-        // console.log(res)
         commit("updateDesclist", res)
     },
 }
