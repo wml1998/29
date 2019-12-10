@@ -2,7 +2,7 @@
   <div class="wrap-desc">
     <div class="desc-top">可向多个商家咨询最低价，商家及时回复</div>
     <div class="desc-content">
-      <div class="commit">
+      <div class="commit" @click="typeList">
         <div class="desc-left">
           <img :src="desclist.CoverPhoto" alt />
         </div>
@@ -16,7 +16,7 @@
         <ul>
           <li>
             <span>姓名</span>
-            <input type="text" placeholder="输入你的真实中文姓名" />
+            <input type="text" placeholder="输入你的真实中文姓名"/>
           </li>
           <li>
             <span>手机</span>
@@ -34,15 +34,15 @@
       <div class="dealer-info">
         <!-- {{desclist.list}} -->
         <p class="tip">选择报价经销商</p>
-        <ul v-for="(item,index) in desclist.list" :key="index">
+        <ul v-for="(item,index) in DealerList" :key="index">
           <li data-hover="hover">
             <p>
-              <span>{{item.car_name}}</span>
-              <span>{{item.dealer_price}}万</span>
+              <span>{{item.dealerShortName}}</span>
+              <span>{{item.vendorPrice}}万</span>
             </p>
             <p>
-              <span>{{item.add_press_type}}北京市朝阳区东四环南路小武基桥西南366号</span>
-              <span>{{item.link_from}}售本市</span>
+              <span>{{item.address}}</span>
+              <span>{{item.saleRange}}</span>
             </p>
           </li>
         </ul>
@@ -54,11 +54,10 @@
         <SelectCity />
       </div>
     </transition>
-
-    <div class="desc-footer">
-      <button data-hover="hover">询问最低价</button>
-    </div>
-    <!-- <div class="alert">
+    <!-- <div class="desc-footer">
+      <button data-hover="hover" @click="alertClick">询最低价</button>
+    </div> -->
+    <div class="alert" v-if="flag">
       <div class="alert-content">
         <div class="wrap">
           <span class="alert-title-sub" id="subTitle">
@@ -67,12 +66,12 @@
           <span class="alert-title">
             请输入真实的中文姓名
           </span>
-          <span class="handok">
+          <span class="alert-ok" data-hover="hover" @click="AlertOk">
             好
           </span>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -84,28 +83,43 @@ export default {
   computed: {
     ...mapState({
       tag:state=>state.selectCity.tag,
-      title:state=>state.selectCity.title
+      title:state=>state.selectCity.title,
+      DealerList:state=>state.dealer.DealerList
     })
     
   },
   created() {
-    //  console.log(this.desclist)
+    let car_id = localStorage.getItem('car_id');
+    this.getDealerList({car_id,cityId:'201'})
   },
   methods: {
     ...mapMutations({
         changeTag:'selectCity/changeTag'
     }),
+    ...mapActions({
+      getDealerList:'dealer/getDealerList'
+    }),
     tabClick() {
       this.changeTag(true);
     },
     alertClick(){
-
+      this.flag=true
+    },
+    AlertOk(){
+      this.flag=false
+    },
+    typeList(){
+      this.$router.push(
+      {
+        path:"/home/typeList"
+      })
+      // alert(111111111)
     }
   },
   data() {
     return {
       desclist: JSON.parse(localStorage.getItem("car")),
-      // flag: false
+      flag: false
     };
   },
   components: {
@@ -127,11 +141,15 @@ export default {
   background: #79cd92;
   text-align: center;
   color: #fff;
+  position: fixed;
+  top: 0;
+  z-index: 104;
 }
 .commit {
   width: 100%;
   height: 2rem;
   background: #fff;
+  margin-top:.6rem;
 }
 .desc-left {
   width: 2.5rem;
@@ -307,6 +325,7 @@ export default {
   outline: none;
   -webkit-appearance: none;
   border: none;
+  
 }
 .supp-info {
   text-align: center;
@@ -333,18 +352,65 @@ export default {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
-// .alert {
-//     width: 100%;
-//     height: 100%;
-//     overflow: hidden;
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     bottom: 0;
-//     right: 0;
-//     z-index: 1000;
-//     background-color: rgba(0,0,0,.4);
-//     -webkit-animation: a .3s ease forwards;
-//     animation: a .3s ease forwards;
-// }
+.alert {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: rgba(0,0,0,.4);
+    -webkit-animation: a .3s ease forwards;
+    animation: a .3s ease forwards;
+}
+.alert .alert-content {
+    position: fixed;
+    z-index: 9999;
+    background: #f6f6f6;
+    border-radius: 7px;
+    width: 72%;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    text-align: center;
+    font-size: 0;
+}
+.wrap {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+.alert .alert-content .alert-title-sub {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    padding: 18px 0 6px;
+    line-height: 22px;
+    font-size: 16px;
+    font-weight: 700;
+}
+.alert .alert-content .alert-title {
+    display: block;
+    margin: 0 auto;
+    padding: 0 0 20px;
+    max-width: 86%;
+    line-height: 16px;
+    font-size: 13px;
+}
+.alert .alert-content .alert-ok {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 14px 0;
+    border-radius: 0 0 7px 7px;
+    line-height: 16px;
+    font-size: 16px;
+    color: #007aff;
+    transition: background-color .1s;
+}
 </style>

@@ -4,7 +4,7 @@
       <li
         v-for="(item,index) in selectcity"
         :key="index"
-        @click="cityChange(item.CityName)"
+        @click="cityChange(item)"
       >{{item.CityName}}</li>
     </ul>
   </div>
@@ -25,9 +25,16 @@ export default {
       changeTitle: "selectCity/changeTitle",
       updateTag: "selectCity/updateTag"
     }),
-    cityChange(name) {
-      this.changeTitle(name);
+    ...mapActions({
+      getDealerList:"dealer/getDealerList"
+    }),
+    cityChange(item) {
+      this.changeTitle(item.CityName);
       this.updateTag(false);
+      // 获取车款ID
+      let car_id  = localStorage.getItem('car_id');
+      let cityId = item.CityID;
+      this.getDealerList({car_id,cityId})
     }
   }
 };
