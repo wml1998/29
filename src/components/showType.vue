@@ -1,4 +1,5 @@
 <template>
+<!-- 组件：再查看车款页面查看车款 -->
   <div class="typebox">
     <div class="allCarType">
       <p class="alltype" @click="allcartype">全部车款</p>

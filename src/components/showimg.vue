@@ -1,4 +1,5 @@
 <template>
+<!-- 在图片页面看每一张图片。 -->
   <div class="imgBoxin">
     <div class="imgtitle">
       <p class="image_up">{{item.Name}}</p>

@@ -1,4 +1,5 @@
 <template>
+<!-- 首页右侧显示左侧点击的车系下的详细每款车 -->
   <div class="rightcont" v-if="flag==true">
     <div class="rightcont-son" v-for="(item,index) in rightarr.data" :key="index">
       <p class="title">{{item.GroupName}}</p>
