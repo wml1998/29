@@ -21,7 +21,7 @@
     <div v-for="(item,index) in currentList" :key="index">
       <p class="every-title">{{item.key}}</p>
       <ul class="showlist">
-        <li class="listyle" v-for="(item,index) in item.list" :key="index" @click="jumpimg(item.car_id)">
+        <li class="listyle" v-for="(item,index) in item.list" :key="index" @click="jumpimg(item.car_id,item.market_attribute.year,item.car_name)">
           <p class="p-first">
             <span>{{item.market_attribute.year}}款 {{item.car_name}}</span>
             <span class="offerprice">{{item.market_attribute.dealer_price_min}}起</span>

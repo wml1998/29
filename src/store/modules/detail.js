@@ -5,7 +5,9 @@ const state = {
     current: '全部',    // 当前选择年份 
     currentList: [],    // 当前年份的车款数据 
     newarr: [],
-    yearday:[]
+    yearday:[],
+    carStyle:"车款",
+    cartype:""
 }
 // 给车款排序
 function sortCarList(list) {
@@ -83,6 +85,12 @@ const mutations = {
     },
     updatayear(state, payload) {//更新前面传过来的年份
         state.current = payload
+    },
+    upcarStyle(state,payload){
+        state.carStyle=payload
+    },
+    upcarType(state,payload){
+      state.cartype
     }
 }
 
