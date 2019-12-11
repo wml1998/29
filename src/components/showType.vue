@@ -9,8 +9,10 @@
       <div class="c-type">
         <span
           v-for="(item,index)  in year"
-          @click="chengeyear(item,index)"
-          :class="{active:curIndex==index}"
+          @click="chengeyear(item,index)"   
+
+          
+          :class="{active:curIndex==index}" 
           :key="index"
         >{{item}}</span>
       </div>
