@@ -1,7 +1,7 @@
 <template>
   <div class="car" v-if="Object.keys(descList).length">
     <!-- 顶层的展示banner栏 -->
-    <div class="content">
+    <div class="content">   
       <!-- 装载图片 -->
       <div class="img" @click="jumpimg()">
         <img :src="descList.CoverPhoto" alt />
@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="bottom-clumn" @click="currentcar()">
+    <div class="bottom-clumn">
       <p class="answer">询问底价</p>
       <p class="answertwo">本地经销商为你报价</p>
     </div>
@@ -65,7 +65,8 @@ export default {
   created() {
     
     this.getDescList(this.$route.query.id);
-    // this.getDescList(JSON.parse(localStorage.getItem("car")).SerialID);
+    console.log(this.$route.query.id,"iiiidddd")
+    // localStorage.setItem("infocar",JSON.stringify(this.descList))
 
     // localStorage.setItem("infocar",JSON.stringify(this.descList))
   },

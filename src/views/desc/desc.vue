@@ -4,7 +4,7 @@
     <div class="desc-content">
       <div class="commit" @click="typeList">
         <div class="desc-left">
-          <img :src="desclist.CoverPhoto" alt />
+          <img :src="desclist.CoverPhoto" alt>
         </div>
         <div class="desc-right">
           <p>{{desclist.AliasName}}</p>
@@ -20,7 +20,7 @@
           </li>
           <li>
             <span>手机</span>
-            <input type="tel" placeholder="输入你的真实中文姓名" />
+            <input type="tel" placeholder="输入你的真实中文姓名">
           </li>
           <li>
             <span>城市</span>
@@ -51,7 +51,7 @@
     </div>
     <transition name="scoll">
       <div class="select-city" v-show="tag">
-        <SelectCity />
+        <SelectCity/>
       </div>
     </transition>
     <!-- <div class="desc-footer">
@@ -86,7 +86,6 @@ export default {
       title:state=>state.selectCity.title,
       DealerList:state=>state.dealer.DealerList
     })
-    
   },
   created() {
     let car_id = localStorage.getItem('car_id');
@@ -94,12 +93,13 @@ export default {
   },
   methods: {
     ...mapMutations({
-        changeTag:'selectCity/changeTag'
+      changeTag: "selectCity/changeTag"
     }),
     ...mapActions({
       getDealerList:'dealer/getDealerList'
     }),
     tabClick() {
+      console.log(this.desclist);
       this.changeTag(true);
     },
     alertClick(){

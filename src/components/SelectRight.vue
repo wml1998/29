@@ -1,4 +1,5 @@
 <template>
+<!-- 右侧的城市选择 -->
   <div class="selectRight">
     <ul id="cityList">
       <li

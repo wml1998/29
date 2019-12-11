@@ -4,7 +4,8 @@ const state = {
     desclist: {},   // 元数据
     current: '全部',    // 当前选择年份 
     currentList: [],    // 当前年份的车款数据 
-    newarr: []
+    newarr: [],
+    yearday:[]
 }
 // 给车款排序
 function sortCarList(list) {
@@ -52,10 +53,14 @@ const mutations = {
             /** 处理数据 */
             // 1.拿到年份
             let yearArr = ["全部"]
+            let arr1=[]
             let year = payload.data.list.map(item => item.market_attribute.year);
             yearArr = new Set(yearArr.concat([...new Set(year)]));
-            state.newarr = yearArr
-            // console.log(state.newarr)
+            state.newarr = [...yearArr]
+            arr1=[...state.newarr]
+            let returnArr = arr1.shift();
+            state.yearday=arr1
+            // state.yearday=state.newarr.shift()
             // 2.拿到当前选择年份的数据
             let currentList = [];
             if (state.current == '全部') {
@@ -70,6 +75,7 @@ const mutations = {
             // 4.聚合key相同的车款数据
             currentList = formatCarList(currentList);
             state.currentList = currentList;
+            // console.log(state.currentList,"应该渲染的所有数据")
             // console.log('currentList...====', currentList);
         } else {
             alert(payload.msg)
@@ -77,14 +83,12 @@ const mutations = {
     },
     updatayear(state, payload) {//更新前面传过来的年份
         state.current = payload
-        //   console.log(state.current,"pppppp")
     }
 }
 
 const actions = {
     async getDescList({ commit }, payload) {
         let res = await getdesclist(payload)
-        // console.log(res)
         commit("updateDesclist", res)
     },
 }

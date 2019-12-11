@@ -1,4 +1,5 @@
 <template>
+<!-- 选择城市的组件 -->
   <div class="select-city">
     <div class="province">
       <div class="location">

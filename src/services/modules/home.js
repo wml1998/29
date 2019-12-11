@@ -13,7 +13,7 @@ export let getImgList=(SerialID)=>{
 }
 // 颜色
 export let getMasterSeries=(params)=>{
-    return request("/v2-car-getModelImageYearColor.html",{params})
+    return request("/v2-car-getImageList.html",{params})
 }
 // 省市数据
 export let getSelect=()=>{
