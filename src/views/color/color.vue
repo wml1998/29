@@ -6,7 +6,7 @@
         <span v-for="(item, index, key) of list" :key="index" @click="handleC(item,key)" :class="{active: curIndex==key}">{{index}}</span>
       </p>
       <ul>
-        <li v-for="(v,i) in colorData" :key="i" @click="clickColor(v.ColorId)">
+        <li v-for="(v,i) in colorData" :key="i" @click="clickColor(v.ColorId,v.Name)">
           <span :style="{background: v.Value}"></span>
           {{v.Name}}
         </li>
@@ -44,10 +44,10 @@ export default {
     ...mapMutations({
       setColor: 'img/setColorId'
     }),
-    clickColor(colorId){
+    clickColor(colorId,colorName){
       this.setColor(colorId);
       console.log(colorId)
-      console.log(setColor,"===")
+      console.log(setColor,colorName,"===")
     },
     //点击年份切换高亮并切换数据
     handleC(item,key){

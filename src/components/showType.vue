@@ -59,8 +59,6 @@ export default {
     ...mapActions({
       //解构
       getDescList: "detail/getDescList"
-     
-
     }),
     ...mapMutations({
       //解构
