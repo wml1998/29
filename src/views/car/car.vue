@@ -65,12 +65,7 @@ export default {
   created() {
     
     this.getDescList(this.$route.query.id);
-<<<<<<< HEAD:src/views/car/car.vue
-    console.log(this.$route.query.id,"iiiidddd")
-    // localStorage.setItem("infocar",JSON.stringify(this.descList))
-=======
     // this.getDescList(JSON.parse(localStorage.getItem("car")).SerialID);
->>>>>>> lmy:src/views/car/car.vue
 
     // localStorage.setItem("infocar",JSON.stringify(this.descList))
   },
@@ -95,21 +90,6 @@ export default {
         query: { id: this.imgid }
       });
     },
-<<<<<<< HEAD:src/views/car/car.vue
-    currentcar(){
-      localStorage.setItem("car",JSON.stringify(this.descList))
-      this.$router.push({
-        path:"/home/desc"
-        //这个是跳转路由
-      })
-    },
-    answerprice(){
-          localStorage.setItem("car",JSON.stringify(this.descList))
-      this.$router.push({
-        path:"/home/desc"
-        //这个是跳转路由
-      })
-=======
     answerprice(id) {
       localStorage.setItem('car_id',id)
       this.$router.push("/home/desc")
@@ -122,7 +102,6 @@ export default {
       // 存车款id
       let car_id = this.currentList[0].list[0].car_id;
       localStorage.setItem("car_id", car_id);
->>>>>>> lmy:src/views/car/car.vue
     }
   }
 };

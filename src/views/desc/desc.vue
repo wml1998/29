@@ -16,11 +16,7 @@
         <ul>
           <li>
             <span>姓名</span>
-<<<<<<< HEAD:src/views/desc/desc.vue
-            <input type="text" placeholder="输入你的真实中文姓名">
-=======
             <input type="text" placeholder="输入你的真实中文姓名"/>
->>>>>>> lmy:src/views/desc/desc.vue
           </li>
           <li>
             <span>手机</span>
@@ -86,14 +82,9 @@ import axios from "axios";
 export default {
   computed: {
     ...mapState({
-<<<<<<< HEAD:src/views/desc/desc.vue
-      tag: state => state.selectCity.tag,
-      title: state => state.selectCity.title
-=======
       tag:state=>state.selectCity.tag,
       title:state=>state.selectCity.title,
       DealerList:state=>state.dealer.DealerList
->>>>>>> lmy:src/views/desc/desc.vue
     })
   },
   created() {
@@ -127,13 +118,8 @@ export default {
   },
   data() {
     return {
-<<<<<<< HEAD:src/views/desc/desc.vue
-      desclist: JSON.parse(localStorage.getItem("car"))
-      // flag: false
-=======
       desclist: JSON.parse(localStorage.getItem("car")),
       flag: false
->>>>>>> lmy:src/views/desc/desc.vue
     };
   },
   components: {
