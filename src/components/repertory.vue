@@ -1,4 +1,6 @@
 <template>
+
+<!-- 右侧楼层组件 -->
   <div class="nav_list"  
     ref="container"
     @touchstart="touchStart"

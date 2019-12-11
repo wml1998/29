@@ -1,7 +1,5 @@
 <template>
-  <div>
-      imgurl
-  </div>
+    <div>swiper</div>
 </template>
 
 <script>

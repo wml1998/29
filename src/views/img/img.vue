@@ -4,6 +4,7 @@
       <p class="color" @click="carcolor">颜色</p>
       <p class="type" @click="cattype">车款</p>
     </div>
+
     <div class="contbox">
       <Showimg v-for="(item,index) in imgList" :item="item" :key="index" />
     </div>
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+import Banner from "../../components/banner.vue"
 import Color from "../../components/carColor.vue";
 import Showimg from "../../components/showimg.vue";
 import { mapState, mapActions } from "vuex";
@@ -27,7 +29,9 @@ export default {
   },
   components: {
     Showimg,
-    Color
+    Color,
+    Showtype,
+    Banner
   },
   data() {
     return {
