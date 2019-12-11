@@ -141,7 +141,6 @@ export default {
     padding: 0.28rem 0.06rem;
     border-bottom: 1px solid #eee;
     box-sizing: border-box;
-    height: 1.25rem;
     line-height: 1;
     p:first-child {
       font-size: 0.3rem;
