@@ -5,16 +5,11 @@
       <p class="type" @click="cattype">车款</p>
     </div>
     <div class="contbox">
-      <Showimg v-for="(item,index) in imgList" :item="item" :key="index"/>
+      <Showimg v-for="(item,index) in imgList" :item="item" :key="index" />
     </div>
     <transition name="scroll-top">
       <div class="wrap" v-show="showColor">
-        <Color :Seriid="serid" :showColor.sync="showColor"/>
-      </div>
-    </transition>
-    <transition name="scroll-top">
-      <div class="wrap" v-show="showType">
-        <Showtype :Seriid="serid" :showType.sync="showType"/>
+        <Color :Seriid="serid" :showColor.sync="showColor" />
       </div>
     </transition>
   </div>
@@ -23,53 +18,36 @@
 <script>
 import Color from "../../components/carColor.vue";
 import Showimg from "../../components/showimg.vue";
-import Showtype from "../../components/showType.vue";
 import { mapState, mapActions } from "vuex";
 export default {
   computed: {
     ...mapState({
-      imgList: state => state.color.seriesDate,
-      EnlargementImgfalg: state => state.color.EnlargementImgfalg,
-      colorId: state => state.color.colorId,
-      carId: state => state.color.carId
+      imgList: state => state.img.imgList
     })
   },
   components: {
     Showimg,
-    Color,
-    Showtype
+    Color
   },
   data() {
     return {
       showColor: false,
-      serid: this.$route.query.id,
-      showType: false
+      serid: this.$route.query.id
     };
   },
   created() {
+    this.getImgList(this.$route.query.id);
+    // console.log(this.$route.query.id);
   },
   methods: {
     ...mapActions({
-      getMasterSeries: "color/getMasterSeries"
+      getImgList: "img/getImgList"
     }),
     carcolor() {
-      this.showColor = true;
+      (this.showColor = true), console.log(this.showColor);
+      console.log(this.serid);
     },
-    cattype() {
-      this.showType = true;
-    }
-  },
-  watch: {
-    colorId() {
-      this.getMasterSeries(this.serialId);
-    },
-    carId() {
-      this.getMasterSeries(this.serialId);
-    }
-  },
-  mounted() {
-    this.serialId = this.$route.query.id;
-    this.getMasterSeries(this.serialId);
+    cattype() {}
   }
 };
 </script>
@@ -85,8 +63,6 @@ export default {
 }
 .imgbox {
   background: #f4f4f4;
-  width: 100%;
-  height: 100%;overflow: auto
 }
 .flexwrap {
   position: fixed;
@@ -118,10 +94,11 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   min-height: 100%;
   background: #fff;
   z-index: 100;
 }
+// .contbox {
+// }
 </style>
 

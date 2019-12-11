@@ -1,3 +1,4 @@
-// export let getRightlist=(MasterID)=>{
-//     return request("/v2-car-getMakeListByMasterBrandId.html",{params:{MasterID}})
-// }//右侧抽屉的数据
+// import request from "../../utils/request"
+// export let getdesclist=(SerialID)=>{
+//     return request("/v2-car-getInfoAndListById.html",{params:{SerialID}})
+// }//点感情

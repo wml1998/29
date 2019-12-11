@@ -8,6 +8,7 @@ import detail from "./modules/detail"
 import img from "./modules/img"
 import color from "./modules/color"
 import selectCity from "./modules/selectCity"
+import dealer from "./modules/dealer"
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ export default new Vuex.Store({
     detail,
     img,
     color,
-    selectCity
+    selectCity,
+    dealer
   },
   plugins: [createLogger()]
 })

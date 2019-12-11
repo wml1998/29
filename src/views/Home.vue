@@ -8,7 +8,7 @@
         @touchmove="touchmove"
         @touchend="touchend"
       >
-        <Right :rightarr="righAarr" :flag="this.flag"/>
+        <Right :rightarr="righAarr" :flag="this.flag" />
       </div>
       <div v-for="(item,index) in arr" :key="index" :id="item.letter" class="ele">
         <p>{{item.letter}}</p>
@@ -19,7 +19,7 @@
             class="item"
             @click="rightIndex(item.MasterID)"
           >
-            <img v-lazy="item.CoverPhoto" alt>
+            <img v-lazy="item.CoverPhoto" alt />
             <span>{{item.Name}}</span>
           </li>
         </ul>
@@ -63,7 +63,6 @@ export default {
       this.getRightlist(MasterID);
       this.flag = true;
       this.$refs.rightstyle.style.width = "75%";
-      
     },
     jumps(item) {
       // console.log(item.letter,"22222222222")
