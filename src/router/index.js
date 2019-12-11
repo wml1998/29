@@ -14,7 +14,7 @@ let spinRoute={
          setTimeout(() => {
            Indicator.close()
            resolve(component)
-         }, 40);
+         }, 30);
        }
   }
 }
