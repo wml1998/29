@@ -1,7 +1,7 @@
 <template>
 <!-- 在图片页面看每一张图片。 -->
   <div class="imgBoxin">
-    <div class="imgtitle">
+    <div class="imgtitle"  @click="showbanner(item)">
       <p class="image_up">{{item.Name}}</p>
       <p class="img_down">{{item.Count}}张></p>
     </div>
@@ -16,7 +16,11 @@
 <script>
 export default {
   props: ["item"],
-  methods: {}
+  methods: {
+    showbanner(it){
+console.log(it)
+    }
+  },
 };
 </script>
 
