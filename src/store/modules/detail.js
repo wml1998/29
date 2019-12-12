@@ -78,7 +78,7 @@ const mutations = {
             // console.log(state.currentList,"应该渲染的所有数据")
             // console.log('currentList...====', currentList);
         } else {
-            alert(payload.msg)
+            // alert(payload.msg)
         }
     },
     updatayear(state, payload) {//更新前面传过来的年份
