@@ -1,6 +1,7 @@
 <template>
-   <div class="wrap-desc" ref="wrapdesc" @scroll="getheight($event)">
-    <div class="desc-top" ref="moreshop" >可向多个商家咨询最低价，商家及时回复</div>
+  <div class="wrap-desc" ref="wrapdesc" @scroll="getheight($event)">
+    <!-- 给我的当前最大元素绑定一个 -->
+    <div class="desc-top" ref="moreshop">可向多个商家咨询最低价，商家及时回复</div>
     <div class="desc-content">
       <div class="commit" @click="typeList">
         <div class="desc-left">
@@ -16,7 +17,7 @@
         <ul>
           <li>
             <span>姓名</span>
-            <input type="text" placeholder="输入你的真实中文姓名"/>
+            <input type="text" placeholder="输入你的真实中文姓名">
           </li>
           <li>
             <span>手机</span>
@@ -33,9 +34,13 @@
       </div>
       <div class="dealer-info" ref="reportPrice">
         <!-- {{desclist.list}} -->
-        <p class="tip" >选择报价经销商</p>
-        <ul v-for="(item,index) in DealerList" :key="index" >
-          <li data-hover="hover" :class="{active:item.newsRemainingDays==1}" @click="checkTag(item)">
+        <p class="tip">选择报价经销商</p>
+        <ul v-for="(item,index) in DealerList" :key="index">
+          <li
+            data-hover="hover"
+            :class="{active:item.newsRemainingDays==1}"
+            @click="checkTag(item)"
+          >
             <p>
               <span>{{item.dealerShortName}}</span>
               <span>{{item.vendorPrice}}万</span>
@@ -54,23 +59,17 @@
         <SelectCity/>
       </div>
     </transition>
-  
+
     <div class="alert" v-if="flag">
       <div class="alert-content">
         <div class="wrap">
-          <span class="alert-title-sub" id="subTitle">
-
-          </span>
-          <span class="alert-title">
-            请输入真实的中文姓名
-          </span>
-          <span class="alert-ok" data-hover="hover" @click="AlertOk">
-            好
-          </span>
+          <span class="alert-title-sub" id="subTitle"></span>
+          <span class="alert-title">请输入真实的中文姓名</span>
+          <span class="alert-ok" data-hover="hover" @click="AlertOk">好</span>
         </div>
       </div>
     </div>
-      <div class="desc-footer" ref="answerFloor">
+    <div class="desc-footer" ref="answerFloor">
       <button data-hover="hover">询最低价</button>
     </div>
   </div>
@@ -78,54 +77,59 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
+import Showtype from "../../components/showType.vue";
 import SelectCity from "../../components/selectCity";
 import axios from "axios";
 export default {
   computed: {
     ...mapState({
-      tag:state=>state.selectCity.tag,
-      title:state=>state.selectCity.title,
-      DealerList:state=>state.dealer.DealerList
+      tag: state => state.selectCity.tag,
+      title: state => state.selectCity.title,
+      DealerList: state => state.dealer.DealerList
     })
   },
+  components: {
+    Showtype
+  },
   created() {
-    let car_id = localStorage.getItem('car_id');
-    this.getDealerList({car_id,cityId:'201'})
+    let car_id = localStorage.getItem("car_id");
+    this.getDealerList({ car_id, cityId: "201" });
   },
   methods: {
     ...mapMutations({
       changeTag: "selectCity/changeTag"
     }),
     ...mapActions({
-      getDealerList:'dealer/getDealerList'
+      getDealerList: "dealer/getDealerList"
     }),
     tabClick() {
       console.log(this.desclist);
       this.changeTag(true);
     },
-    alertClick(){
-      this.flag=true
+    alertClick() {
+      this.flag = true;
     },
-    AlertOk(){
-      this.flag=false
+    AlertOk() {
+      this.flag = false;
     },
-    typeList(){
-      this.$router.push(
-      {
-        path:"/home/typeList"
-      })
+    // typeList(){
+    //   this.$router.push(
+    //   {
+    //     path:"/home/typeList"
+    //   })
+    // },
+    getheight(e) {
+      let far =
+        this.$refs.reportPrice.offsetTop - this.$refs.moreshop.offsetHeight;
+      if (this.$refs.wrapdesc.scrollTop > far) {
+        this.$refs.answerFloor.style.display = "block";
+      } else {
+        this.$refs.answerFloor.style.display = "none";
+      }
     },
-   getheight(e){
-     let far=this.$refs.reportPrice.offsetTop-this.$refs.moreshop.offsetHeight
-     if(this.$refs.wrapdesc.scrollTop>far){
-         this.$refs.answerFloor.style.display="block"
-     }else{
-         this.$refs.answerFloor.style.display="none"
-     }
-   },
-   checkTag(item){
-     item.newsRemainingDays=!item.newsRemainingDays
-   }
+    checkTag(item) {
+      item.newsRemainingDays = !item.newsRemainingDays;
+    }
   },
   data() {
     return {
@@ -143,9 +147,9 @@ export default {
   width: 100%;
   height: 100%;
   background: #f4f4f4;
-  overflow: auto
+  overflow: auto;
 }
-.descBox{
+.descBox {
   width: 100%;
   height: 100%;
 }
@@ -164,7 +168,7 @@ export default {
   width: 100%;
   height: 2rem;
   background: #fff;
-  margin-top:.6rem;
+  margin-top: 0.6rem;
 }
 .desc-left {
   width: 2.5rem;
@@ -279,37 +283,37 @@ export default {
   margin-right: 0.2rem;
 }
 .dealer-info ul li:before {
-        content: "";
-        display: inline-block;
-        width: 17px;
-        height: 17px;
-        border-radius: 50%;
-        border: 2px solid #ccc;
-        box-sizing: border-box;
-        position: absolute;
-        left: .05rem;
-        top: 50%;
-        -webkit-transform: translate3d(0,-50%,0);
-        transform: translate3d(0,-50%,0);
-    }
-    .dealer-info ul li.active:before {
-        background: #3aacff;
-        border: none;
-    }
- .dealer-info li.active:after {
-        content: "";
-        display: inline-block;
-        padding-top: 10px;
-        padding-right: 6px;
-        border: 2px solid #fff;
-        -webkit-transform: rotate(40deg) translate3d(0,-50%,0);
-        transform: rotate(40deg) translate3d(0,-50%,0);
-        position: absolute;
-        left: .07rem;
-        border-left: none;
-        border-top: none;
-        top: 47%;
-    }
+  content: "";
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0.05rem;
+  top: 50%;
+  -webkit-transform: translate3d(0, -50%, 0);
+  transform: translate3d(0, -50%, 0);
+}
+.dealer-info ul li.active:before {
+  background: #3aacff;
+  border: none;
+}
+.dealer-info li.active:after {
+  content: "";
+  display: inline-block;
+  padding-top: 10px;
+  padding-right: 6px;
+  border: 2px solid #fff;
+  -webkit-transform: rotate(40deg) translate3d(0, -50%, 0);
+  transform: rotate(40deg) translate3d(0, -50%, 0);
+  position: absolute;
+  left: 0.07rem;
+  border-left: none;
+  border-top: none;
+  top: 47%;
+}
 .dealer-info li p:nth-child(2) {
   margin-top: 0.1rem;
   font-size: 0.24rem;
@@ -344,7 +348,6 @@ export default {
   outline: none;
   -webkit-appearance: none;
   border: none;
-  
 }
 .supp-info {
   text-align: center;
@@ -372,64 +375,64 @@ export default {
   -webkit-overflow-scrolling: touch;
 }
 .alert {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: rgba(0,0,0,.4);
-    -webkit-animation: a .3s ease forwards;
-    animation: a .3s ease forwards;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-animation: a 0.3s ease forwards;
+  animation: a 0.3s ease forwards;
 }
 .alert .alert-content {
-    position: fixed;
-    z-index: 9999;
-    background: #f6f6f6;
-    border-radius: 7px;
-    width: 72%;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
-    -webkit-transform-origin: 50% 50%;
-    transform-origin: 50% 50%;
-    text-align: center;
-    font-size: 0;
+  position: fixed;
+  z-index: 9999;
+  background: #f6f6f6;
+  border-radius: 7px;
+  width: 72%;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  text-align: center;
+  font-size: 0;
 }
 .wrap {
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 .alert .alert-content .alert-title-sub {
-    display: block;
-    width: 80%;
-    margin: 0 auto;
-    padding: 18px 0 6px;
-    line-height: 22px;
-    font-size: 16px;
-    font-weight: 700;
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  padding: 18px 0 6px;
+  line-height: 22px;
+  font-size: 16px;
+  font-weight: 700;
 }
 .alert .alert-content .alert-title {
-    display: block;
-    margin: 0 auto;
-    padding: 0 0 20px;
-    max-width: 86%;
-    line-height: 16px;
-    font-size: 13px;
+  display: block;
+  margin: 0 auto;
+  padding: 0 0 20px;
+  max-width: 86%;
+  line-height: 16px;
+  font-size: 13px;
 }
 .alert .alert-content .alert-ok {
-    position: relative;
-    display: block;
-    width: 100%;
-    padding: 14px 0;
-    border-radius: 0 0 7px 7px;
-    line-height: 16px;
-    font-size: 16px;
-    color: #007aff;
-    transition: background-color .1s;
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 14px 0;
+  border-radius: 0 0 7px 7px;
+  line-height: 16px;
+  font-size: 16px;
+  color: #007aff;
+  transition: background-color 0.1s;
 }
 </style>

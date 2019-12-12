@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <scroll
+    <!-- <scroll
       ref="scroll"
       :data="value"
       :pullDownRefresh="pullDownRefreshObj"
@@ -9,14 +9,14 @@
       @pullingUp="onPullingUp"
     >
       <ul>
-        <span
+       <span
           :key="index"
           @click="showSwiper(index)"
           v-for="(item, index) in value"
           :style="{backgroundImage: 'url('+item.Url.replace('{0}', item.LowSize)+')'}"
-        />
+        /> 
       </ul>
-    </scroll>
+    </scroll> -->
   </div>
 </template>
 
@@ -27,9 +27,9 @@ import Scroll from "./better-scroll/scroll";
  export default {
         computed: {
             ...mapState({
-                count: state => state.pic.count,
-                value: state => state.pic.imageList,
-                page: state => state.pic.page
+                count: state => state.bannerPic.count,
+                // value: state => state.bannerPic.imageList,
+                page: state => state.bannerPic.page
             }),
             pullDownRefreshObj: () => {
                 return {
@@ -78,12 +78,12 @@ import Scroll from "./better-scroll/scroll";
         },
         methods: {
             ...mapActions({
-                getImageTypeList: 'pic/getImageTypeList',
-                refreshDispatch: 'pic/getImageTypeList',
-                loadMoreDispatch: 'pic/getImageTypeList'
+                getImageTypeList: 'bannerPic/getImageTypeList',
+                refreshDispatch: 'bannerPic/getImageTypeList',
+                loadMoreDispatch: 'bannerPic/getImageTypeList'
             }),
             ...mapMutations({
-                setCurrent: 'pic/setCurrent'
+                setCurrent: 'bannerPic/setCurrent'
             }),
             async onPullingDown() {
                 // console.log('pullingdown...');

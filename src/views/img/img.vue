@@ -22,11 +22,12 @@
         <Showtype :Seriid="serid" :showType.sync="showType"/>
       </div>
     </transition>
+    <Banner v-if="showImageList" /> 
   </div>
 </template>
 
 <script>
-
+import Banner from "../../components/bannerSwiper.vue"
 import Color from "../../components/carColor.vue";
 import Showimg from "../../components/showimg.vue";
 import Showtype from "../../components/showType.vue";
@@ -46,6 +47,7 @@ export default {
     Showimg,
     Color,
     Showtype,
+     Banner
   },
   data() {
     return {

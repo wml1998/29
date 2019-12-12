@@ -10,13 +10,13 @@
         <span src :style="{backgroundImage:'url('+itemimg.Url+')'}"/>
       </li>
     </ul>
-      <!-- <Banner v-if="showImageList" :showImageSwiper.sync="showImageSwiper"/>
-      <ImagePreview v-if="showImageSwiper" :showImageSwiper.sync="showImageSwiper"></ImagePreview> -->
+       <Banner v-if="showImageList" /> 
+      <!--<ImagePreview v-if="showImageSwiper" :showImageSwiper.sync="showImageSwiper"></ImagePreview> -->
   </div>
 </template>
 
 <script>
-import Banner from "./banner.vue"
+import Banner from "./bannerSwiper.vue"
 export default {
   props: ["item"],
   data() {
@@ -31,7 +31,7 @@ export default {
     }
   },
   components:{
-    // Banner
+    Banner
   }
 };
 </script>
