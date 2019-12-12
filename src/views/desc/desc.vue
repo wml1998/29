@@ -1,6 +1,6 @@
 <template>
-  <div class="wrap-desc">
-    <div class="desc-top">可向多个商家咨询最低价，商家及时回复</div>
+   <div class="wrap-desc" ref="wrapdesc" @scroll="getheight($event)">
+    <div class="desc-top" ref="moreshop" >可向多个商家咨询最低价，商家及时回复</div>
     <div class="desc-content">
       <div class="commit" @click="typeList">
         <div class="desc-left">
@@ -31,11 +31,11 @@
           <button @click="alertClick">{{desclist.BottomEntranceTitle}}</button>
         </div>
       </div>
-      <div class="dealer-info">
+      <div class="dealer-info" ref="reportPrice">
         <!-- {{desclist.list}} -->
-        <p class="tip">选择报价经销商</p>
-        <ul v-for="(item,index) in DealerList" :key="index">
-          <li data-hover="hover">
+        <p class="tip" >选择报价经销商</p>
+        <ul v-for="(item,index) in DealerList" :key="index" >
+          <li data-hover="hover" :class="{active:item.newsRemainingDays==1}" @click="checkTag(item)">
             <p>
               <span>{{item.dealerShortName}}</span>
               <span>{{item.vendorPrice}}万</span>
@@ -54,9 +54,7 @@
         <SelectCity/>
       </div>
     </transition>
-    <!-- <div class="desc-footer">
-      <button data-hover="hover" @click="alertClick">询最低价</button>
-    </div> -->
+  
     <div class="alert" v-if="flag">
       <div class="alert-content">
         <div class="wrap">
@@ -71,6 +69,9 @@
           </span>
         </div>
       </div>
+    </div>
+      <div class="desc-footer" ref="answerFloor">
+      <button data-hover="hover">询最低价</button>
     </div>
   </div>
 </template>
@@ -113,8 +114,18 @@ export default {
       {
         path:"/home/typeList"
       })
-      // alert(111111111)
-    }
+    },
+   getheight(e){
+     let far=this.$refs.reportPrice.offsetTop-this.$refs.moreshop.offsetHeight
+     if(this.$refs.wrapdesc.scrollTop>far){
+         this.$refs.answerFloor.style.display="block"
+     }else{
+         this.$refs.answerFloor.style.display="none"
+     }
+   },
+   checkTag(item){
+     item.newsRemainingDays=!item.newsRemainingDays
+   }
   },
   data() {
     return {
@@ -130,9 +141,13 @@ export default {
 <style lang="scss" scoped>
 .wrap-desc {
   width: 100%;
-  // height: 100%;
-  height: auto;
+  height: 100%;
   background: #f4f4f4;
+  overflow: auto
+}
+.descBox{
+  width: 100%;
+  height: 100%;
 }
 .desc-top {
   height: 0.6rem;
@@ -263,38 +278,38 @@ export default {
   color: red;
   margin-right: 0.2rem;
 }
-.dealer-info li.active:before {
-  background: #3aacff;
-  border: none;
-}
-.dealer-info li:before {
-  content: "";
-  display: inline-block;
-  width: 0.32rem;
-  height: 0.32rem;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-  box-sizing: border-box;
-  position: absolute;
-  left: 0.05rem;
-  top: 50%;
-  -webkit-transform: translate3d(0, -50%, 0);
-  transform: translate3d(0, -50%, 0);
-}
-.dealer-info li.active:after {
-  content: "";
-  display: inline-block;
-  padding-top: 0.17rem;
-  padding-right: 0.1rem;
-  border: 2px solid #fff;
-  -webkit-transform: rotate(40deg) translate3d(0, -50%, 0);
-  transform: rotate(40deg) translate3d(0, -50%, 0);
-  position: absolute;
-  left: 0.07rem;
-  border-left: none;
-  border-top: none;
-  top: 47%;
-}
+.dealer-info ul li:before {
+        content: "";
+        display: inline-block;
+        width: 17px;
+        height: 17px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        box-sizing: border-box;
+        position: absolute;
+        left: .05rem;
+        top: 50%;
+        -webkit-transform: translate3d(0,-50%,0);
+        transform: translate3d(0,-50%,0);
+    }
+    .dealer-info ul li.active:before {
+        background: #3aacff;
+        border: none;
+    }
+ .dealer-info li.active:after {
+        content: "";
+        display: inline-block;
+        padding-top: 10px;
+        padding-right: 6px;
+        border: 2px solid #fff;
+        -webkit-transform: rotate(40deg) translate3d(0,-50%,0);
+        transform: rotate(40deg) translate3d(0,-50%,0);
+        position: absolute;
+        left: .07rem;
+        border-left: none;
+        border-top: none;
+        top: 47%;
+    }
 .dealer-info li p:nth-child(2) {
   margin-top: 0.1rem;
   font-size: 0.24rem;
@@ -312,7 +327,11 @@ export default {
 }
 .desc-footer {
   width: 100%;
-  z-index: 99;
+  z-index: 105;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 .desc-footer button {
   width: 100%;

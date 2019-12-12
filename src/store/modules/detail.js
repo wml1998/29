@@ -7,7 +7,7 @@ const state = {
     newarr: [],
     yearday:[],
     carStyle:"车款",
-    cartype:""
+    carColor:"颜色"
 }
 // 给车款排序
 function sortCarList(list) {
@@ -88,9 +88,10 @@ const mutations = {
     },
     upcarStyle(state,payload){
         state.carStyle=payload
+        console.log( payload,"年份")
     },
-    upcarType(state,payload){
-      state.cartype
+    upcarColor(state,payload){
+        state.carColor=payload
     }
 }
 

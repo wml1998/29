@@ -1,18 +1,22 @@
 <template>
   <div class="imgbox">
     <div class="flexwrap">
-      <p class="color" @click="carcolor">颜色</p>
-      <p class="type" @click="cattype">车款</p>
+      <p class="color" @click="carcolor">{{carColor}}</p>
+      <p class="type" @click="cattype">{{carStyle}}</p>
     </div>
 
     <div class="contbox">
       <Showimg v-for="(item,index) in imgList" :item="item" :key="index"/>
     </div>
+    <!-- 图片列表 -->
+    
+     <!-- 显示颜色 -->
     <transition name="scroll-top">
       <div class="wrap" v-show="showColor">
         <Color :Seriid="serid" :showColor.sync="showColor"/>
       </div>
     </transition>
+    <!-- 显示车款 -->
     <transition name="scroll-top">
       <div class="wrap" v-show="showType">
         <Showtype :Seriid="serid" :showType.sync="showType"/>
@@ -22,7 +26,7 @@
 </template>
 
 <script>
-import Banner from "../../components/banner.vue"
+
 import Color from "../../components/carColor.vue";
 import Showimg from "../../components/showimg.vue";
 import Showtype from "../../components/showType.vue";
@@ -33,20 +37,22 @@ export default {
       imgList: state => state.color.seriesDate,
       EnlargementImgfalg: state => state.color.EnlargementImgfalg,
       colorId: state => state.color.colorId,
-      carId: state => state.color.carId
+      carId: state => state.color.carId,
+      carStyle:state=>state.detail.carStyle,
+      carColor:state=>state.detail.carColor
     })
   },
   components: {
     Showimg,
     Color,
     Showtype,
-    Banner
   },
   data() {
     return {
       showColor: false,
       serid: this.$route.query.id,
-      showType: false
+      showType: false,
+      showImageList:false
     };
   },
   created() {

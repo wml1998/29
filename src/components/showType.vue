@@ -63,7 +63,9 @@ export default {
     ...mapMutations({
       //解构
       updatayear: "detail/updatayear",
-       setCarId: 'color/setCarId'
+       setCarId: 'color/setCarId',
+       upcarStyle:"detail/upcarStyle",
+      //  upcarType:"detail/upcarType"
     }),
     chengeyear(item,index) {
       //点击tab切换时的操作
@@ -71,10 +73,12 @@ export default {
       this.getDescList(this.$route.query.id);
        this.curIndex = index;
     },
-    jumpimg(carId){
+    jumpimg(carId,atriyear,carName){
       this.setCarId(carId)
        this.$emit('update:showType', false)
-      console.log(carId,"carid")
+      let cartype=atriyear+"款"+carName
+      this.upcarStyle(cartype)
+      // this.upcarType(carName)
       
     },
     allcartype(){

@@ -10,17 +10,29 @@
         <span src :style="{backgroundImage:'url('+itemimg.Url+')'}"/>
       </li>
     </ul>
+      <!-- <Banner v-if="showImageList" :showImageSwiper.sync="showImageSwiper"/>
+      <ImagePreview v-if="showImageSwiper" :showImageSwiper.sync="showImageSwiper"></ImagePreview> -->
   </div>
 </template>
 
 <script>
+import Banner from "./banner.vue"
 export default {
   props: ["item"],
-  methods: {
-    showbanner(it){
-console.log(it)
+  data() {
+    return {
+      showImageList:false
     }
   },
+  methods: {
+    showbanner(it){
+      console.log(it.Id)
+      this.showImageList=true
+    }
+  },
+  components:{
+    // Banner
+  }
 };
 </script>
 
