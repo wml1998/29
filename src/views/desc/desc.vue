@@ -9,7 +9,7 @@
         </div>
         <div class="desc-right">
           <p>{{desclist.AliasName}}</p>
-          <p>2019款 35 TFSI 进取版 国V</p>
+          <p>{{carsName}}</p>
         </div>
       </div>
       <div class="self-info">
@@ -94,6 +94,11 @@ export default {
   created() {
     let car_id = localStorage.getItem("car_id");
     this.getDealerList({ car_id, cityId: "201" });
+    let getcarName=this.desclist.list.slice(0,1)
+    getcarName
+    getcarName.forEach((item,index)=>{
+      this.carsName=item.car_name
+    })
   },
   methods: {
     ...mapMutations({
@@ -111,12 +116,10 @@ export default {
     AlertOk() {
       this.flag = false;
     },
-    // typeList(){
-    //   this.$router.push(
-    //   {
-    //     path:"/home/typeList"
-    //   })
-    // },
+    typeList(){
+
+
+    },
     getheight(e) {
       let far =
         this.$refs.reportPrice.offsetTop - this.$refs.moreshop.offsetHeight;
@@ -133,7 +136,8 @@ export default {
   data() {
     return {
       desclist: JSON.parse(localStorage.getItem("car")),
-      flag: false
+      flag: false,
+      carsName:""
     };
   },
   components: {
