@@ -25,12 +25,15 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setshowBanner:"color/setshowBanner"
+      setshowBanner:"color/setshowBanner",
+      setImageId:"color/setImageId"
+     
     }),
     showbanner(it){
       console.log(it.Id)
       this.showImageList=true
      this.setshowBanner(this.showImageList)
+     this.setImageId(it.Id)
     }
   },
   components:{

@@ -9,8 +9,8 @@
       <Showimg v-for="(item,index) in imgList" :item="item" :key="index"/>
     </div>
     <!-- 图片列表 -->
-    
-     <!-- 显示颜色 -->
+
+    <!-- 显示颜色 -->
     <transition name="scroll-top">
       <div class="wrap" v-show="showColor">
         <Color :Seriid="serid" :showColor.sync="showColor"/>
@@ -22,16 +22,18 @@
         <Showtype :Seriid="serid" :showType.sync="showType"/>
       </div>
     </transition>
-    <Banner v-if="showImageList" /> 
+    <Banner v-if="showImageList" :showImageSwiper.sync="showImageSwiper" />
+    <!-- <ImagePreview v-if="showImageSwiper" :showImageSwiper.sync="showImageSwiper"/> -->
   </div>
 </template>
 
 <script>
-import Banner from "../../components/bannerSwiper.vue"
+import Banner from "../../components/bannerSwiper.vue";
+import ImagePreview from "../../components/preview.vue";
 import Color from "../../components/carColor.vue";
 import Showimg from "../../components/showimg.vue";
 import Showtype from "../../components/showType.vue";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mutations, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapState({
@@ -39,35 +41,52 @@ export default {
       EnlargementImgfalg: state => state.color.EnlargementImgfalg,
       colorId: state => state.color.colorId,
       carId: state => state.color.carId,
-      carStyle:state=>state.detail.carStyle,
-      carColor:state=>state.detail.carColor,
-      showImageList:state=>state.color.showBanner
+      carStyle: state => state.detail.carStyle,
+      carColor: state => state.detail.carColor,
+      showImageList: state => state.color.showBanner
     })
   },
   components: {
     Showimg,
     Color,
     Showtype,
-     Banner
+    Banner,
+    ImagePreview
   },
   data() {
     return {
       showColor: false,
       serid: this.$route.query.id,
-      showType: false
+      showType: false,
+      showImageSwiper:false,
+      showSwiper:false
     };
   },
   created() {
+    this.setSerialId(this.$route.query.id);
   },
   methods: {
     ...mapActions({
       getMasterSeries: "color/getMasterSeries"
+    }),
+    ...mapMutations({
+      setSerialId: "color/setSerialId"
     }),
     carcolor() {
       this.showColor = true;
     },
     cattype() {
       this.showType = true;
+    },
+    // 显示轮播
+    showSwiper(index, Count, List, ImageID){
+      this.setCurrent(index);
+      this.setImageList({
+        Count,
+        List,
+        ImageID
+      });
+      this.showImageSwiper = true;
     }
   },
   watch: {
@@ -97,7 +116,8 @@ export default {
 .imgbox {
   background: #f4f4f4;
   width: 100%;
-  height: 100%;overflow: auto
+  height: 100%;
+  overflow: auto;
 }
 .flexwrap {
   position: fixed;
