@@ -3,13 +3,12 @@
     <div class="flexwrap">
       <p class="color" @click="carcolor">{{carColor}}</p>
       <p class="type" @click="cattype">{{carStyle}}</p>
-    </div>
-
+    </div>  
     <div class="contbox">
       <Showimg v-for="(item,index) in imgList" :item="item" :key="index"/>
     </div>
     <!-- 图片列表 -->
-
+    
     <!-- 显示颜色 -->
     <transition name="scroll-top">
       <div class="wrap" v-show="showColor">
@@ -23,7 +22,7 @@
       </div>
     </transition>
     <Banner v-if="showImageList" :showImageSwiper.sync="showImageSwiper" />
-    <!-- <ImagePreview v-if="showImageSwiper" :showImageSwiper.sync="showImageSwiper"/> -->
+    <ImagePreview v-if="showImageSwiper" :showImageSwiper.sync="showImageSwiper"/> 
   </div>
 </template>
 
@@ -59,7 +58,7 @@ export default {
       serid: this.$route.query.id,
       showType: false,
       showImageSwiper:false,
-      showSwiper:false
+      // showSwiper:false
     };
   },
   created() {

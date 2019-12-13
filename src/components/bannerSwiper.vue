@@ -88,7 +88,7 @@ export default {
                 await this.loadMoreDispatch(this.page+1)
             },
             showSwiper(index){
-            //    this.$emit("update:showImageSwiper", true)
+               this.$emit("update:showImageSwiper", true)
             console.log(index)
                 this.setCurrent(index);
             }

@@ -6,11 +6,11 @@
       <div class="commit" @click="typeList">
         <div data-hover="hover" class="q-info flex-row">
           <img :src="desclist.CoverPhoto" alt>
-          <div class="flex-column flex-centerX">
-            <p>{{desclist.AliasName}}</p>
-            <p>2019款 35 TFSI 进取版 国V</p>
-          </div>
-        </div> 
+        </div>
+        <div class="desc-right">
+          <p>{{desclist.AliasName}}</p>
+          <p>{{carsName}}</p>
+        </div>
       </div>
       <div class="self-info">
         <p class="tip">个人信息</p>
@@ -97,6 +97,11 @@ export default {
   created() {
     let car_id = localStorage.getItem("car_id");
     this.getDealerList({ car_id, cityId: "201" });
+    let getcarName=this.desclist.list.slice(0,1)
+    getcarName
+    getcarName.forEach((item,index)=>{
+      this.carsName=item.car_name
+    })
   },
   methods: {
     ...mapMutations({
@@ -115,10 +120,8 @@ export default {
       this.flag = false;
     },
     typeList(){
-      this.$router.push(
-      {
-        path:"/home/typeList"
-      })
+
+
     },
     getheight(e) {
       let far =
@@ -136,7 +139,8 @@ export default {
   data() {
     return {
       desclist: JSON.parse(localStorage.getItem("car")),
-      flag: false
+      flag: false,
+      carsName:""
     };
   },
   components: {

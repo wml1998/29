@@ -16,10 +16,10 @@ import {mapState, mapMutations, mapActions} from 'vuex'
 export default {
     computed: {
         ...mapState({
-            imageList: state=>state.pic.imageList,
-            current: state=>state.pic.current,
-            count: state=>state.pic.count,
-            page: state=>state.pic.page
+            imageList: state=>state.color.imageList,
+            current: state=>state.color.current,
+            count: state=>state.color.count,
+            page: state=>state.color.page
         }),
         list(){
             return this.imageList.map(item=>{
@@ -43,10 +43,10 @@ export default {
     },
     methods: {
         ...mapMutations({
-            setCurrent: 'pic/setCurrent'
+            setCurrent: 'color/setCurrent'
         }),
         ...mapActions({
-            getImageTypeList: 'pic/getImageTypeList'
+            getImageTypeList: 'color/getImageTypeList'
         }),
         change(index){
             // 提前两张加载下一页图片
