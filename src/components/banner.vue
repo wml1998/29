@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <!-- <scroll
+    <scroll
       ref="scroll"
       :data="value"
       :pullDownRefresh="pullDownRefreshObj"
@@ -16,10 +16,9 @@
           :style="{backgroundImage: 'url('+item.Url.replace('{0}', item.LowSize)+')'}"
         /> 
       </ul>
-    </scroll> -->
+    </scroll>
   </div>
 </template>
-
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import CommonList from "./CommonList";
@@ -27,9 +26,9 @@ import Scroll from "./better-scroll/scroll";
  export default {
         computed: {
             ...mapState({
-                count: state => state.bannerPic.count,
-                // value: state => state.bannerPic.imageList,
-                page: state => state.bannerPic.page
+                count: state => state.color.count,
+                value: state => state.color.imageList,
+                page: state => state.color.page
             }),
             pullDownRefreshObj: () => {
                 return {
@@ -78,25 +77,17 @@ import Scroll from "./better-scroll/scroll";
         },
         methods: {
             ...mapActions({
-                getImageTypeList: 'bannerPic/getImageTypeList',
-                refreshDispatch: 'bannerPic/getImageTypeList',
-                loadMoreDispatch: 'bannerPic/getImageTypeList'
+                getImageTypeList: 'color/getImageTypeList',
+                refreshDispatch: 'color/getImageTypeList',
+                loadMoreDispatch: 'color/getImageTypeList'
             }),
             ...mapMutations({
-                setCurrent: 'bannerPic/setCurrent'
+                setCurrent: 'color/setCurrent'
             }),
             async onPullingDown() {
-                // console.log('pullingdown...');
-                // setTimeout(()=>{
-                //     this.refreshDispatch(1);
-                // }, 10000);
                 await this.refreshDispatch(1);
             },
             async onPullingUp() {
-                // console.log('pullingup...');
-                // setTimeout(()=>{
-                    // this.loadMoreDispatch(this.page + 1);
-                // }, 10000);
                 await this.loadMoreDispatch(this.page + 1);
             },
             showSwiper(index){

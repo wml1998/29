@@ -29,13 +29,11 @@ const actions = {
     //省市
     async getSelect({ commit }, payload) {
         let res = await getSelect(payload)
-        // console.log(res)
         commit("updateSelect", res.data)
     },
     //对应城市数据
     async getSelectRight({ commit }, payload) {
         let res = await getSelectRight(payload)
-        // console.log(res,"-----------")
         commit("updateSelectCity", res.data)
     },
 

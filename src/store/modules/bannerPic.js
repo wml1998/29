@@ -85,7 +85,6 @@ const actions = {
             PageSize: state.pageSize
         }
         let res = await getImageTypeList(params);
-        console.log('res...', res);
         let {Count, List} = res.data.data;
         commit('setImageList', {Count, List});
     }

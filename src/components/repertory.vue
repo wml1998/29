@@ -42,10 +42,9 @@ export default {
       this.$emit('Parent_jump', this.arr[index]);
     },
     touchEnd(e){
-     
+  
     }
   },
-
 };
 </script>
 

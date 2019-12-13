@@ -59,7 +59,6 @@ export default {
       getRightlist: "home/getRightlist"
     }),
     rightIndex(MasterID) {
-      // console.log(MasterID);
       this.getRightlist(MasterID);
       this.flag = true;
       this.$refs.rightstyle.style.width = "75%";
@@ -89,8 +88,6 @@ export default {
           this.flag = false;
         }, 200);
       }
-      // console.log(e.changedTouches[0].clientX)
-      // console.log(e.changedTouches[0].clientY)
     },
     officialVanish() {
       this.amendstatefalse();

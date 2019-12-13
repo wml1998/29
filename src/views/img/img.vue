@@ -40,7 +40,8 @@ export default {
       colorId: state => state.color.colorId,
       carId: state => state.color.carId,
       carStyle:state=>state.detail.carStyle,
-      carColor:state=>state.detail.carColor
+      carColor:state=>state.detail.carColor,
+      showImageList:state=>state.color.showBanner
     })
   },
   components: {
@@ -53,8 +54,7 @@ export default {
     return {
       showColor: false,
       serid: this.$route.query.id,
-      showType: false,
-      showImageList:false
+      showType: false
     };
   },
   created() {

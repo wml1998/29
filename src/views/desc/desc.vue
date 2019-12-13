@@ -106,7 +106,6 @@ export default {
       getDealerList: "dealer/getDealerList"
     }),
     tabClick() {
-      console.log(this.desclist);
       this.changeTag(true);
     },
     alertClick() {
