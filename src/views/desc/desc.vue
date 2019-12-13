@@ -59,14 +59,10 @@
         <SelectCity/>
       </div>
     </transition>
-<<<<<<< HEAD
-
-=======
     <!-- 询问最低价 就是最后需要判断滑动的距离 来显现出button的按钮 -->
     <!-- <div class="desc-footer">
       <button data-hover="hover" @click="alertClick">询最低价</button>
     </div> -->
->>>>>>> 142595e453e21c4d5f655da5e5720a8b3353871b
     <div class="alert" v-if="flag">
       <div class="alert-content">
         <div class="wrap">
@@ -119,12 +115,12 @@ export default {
     AlertOk() {
       this.flag = false;
     },
-    // typeList(){
-    //   this.$router.push(
-    //   {
-    //     path:"/home/typeList"
-    //   })
-    // },
+    typeList(){
+      this.$router.push(
+      {
+        path:"/home/typeList"
+      })
+    },
     getheight(e) {
       let far =
         this.$refs.reportPrice.offsetTop - this.$refs.moreshop.offsetHeight;
