@@ -49,7 +49,7 @@
       </div>
       <div class="supp-info"></div>
     </div>
-    <transition name="scoll">
+    <transition name="scoll">0
       <div class="select-city" v-show="tag">
         <SelectCity/>
       </div>
