@@ -3,13 +3,13 @@
     <div class="desc-top">可向多个商家咨询最低价，商家及时回复</div>
     <div class="desc-content">
       <div class="commit" @click="typeList">
-        <div class="desc-left">
+        <div data-hover="hover" class="q-info flex-row">
           <img :src="desclist.CoverPhoto" alt>
-        </div>
-        <div class="desc-right">
-          <p>{{desclist.AliasName}}</p>
-          <p>2019款 35 TFSI 进取版 国V</p>
-        </div>
+          <div class="flex-column flex-centerX">
+            <p>{{desclist.AliasName}}</p>
+            <p>2019款 35 TFSI 进取版 国V</p>
+          </div>
+        </div> 
       </div>
       <div class="self-info">
         <p class="tip">个人信息</p>
@@ -49,11 +49,12 @@
       </div>
       <div class="supp-info"></div>
     </div>
-    <transition name="scoll">
+    <transition name="scoll">0
       <div class="select-city" v-show="tag">
         <SelectCity/>
       </div>
     </transition>
+    <!-- 询问最低价 就是最后需要判断滑动的距离 来显现出button的按钮 -->
     <!-- <div class="desc-footer">
       <button data-hover="hover" @click="alertClick">询最低价</button>
     </div> -->
@@ -151,24 +152,68 @@ export default {
   background: #fff;
   margin-top:.6rem;
 }
-.desc-left {
-  width: 2.5rem;
-  height: 1.4rem;
-  margin: 0.3rem;
-  float: left;
-  img {
-    width: 100%;
-    height: 100%;
-  }
+.q-info {
+    background: #fff;
+    padding: .32rem .18rem .24rem;
+    position: relative;
+    height: 2rem;
+    box-sizing: border-box;
 }
-.desc-right {
-  width: 4.2rem;
-  height: 1.4rem;
-  float: left;
-  margin: 0.3rem 0rem;
-  p {
-    line-height: 0.6rem;
-  }
+.flex-column, .flex-row {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-direction: normal;
+}
+.flex-row {
+    -webkit-box-orient: horizontal;
+    flex-direction: row;
+}
+.q-info:before {
+    content: "";
+    display: inline-block;
+    padding-top: .16rem;
+    padding-right: .16rem;
+    border-top: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    right: .26rem;
+    top: .9rem;
+}
+ .q-info img {
+    width: 2.3rem;
+    height: 1.41rem;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+.q-info div {
+    margin-left: .2rem;
+    width: 4.3rem;
+}
+.flex-centerX {
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.flex-column, .flex-row {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-direction: normal;
+}
+.flex-column {
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+}
+.q-info div p:first-child {
+    font-size: .36rem;
+    line-height: 1;
+}
+.q-info div p:nth-child(2) {
+    margin-top: .26rem;
+    font-size: .32rem;
+    line-height: 1.2;
+    color: #333;
 }
 .self-info {
   width: 100%;
@@ -307,7 +352,6 @@ export default {
 .dealer-info li p:nth-child(2) span:last-child {
   display: inline-block;
   font-size: 0.24rem;
-  float: right;
   margin-right: 0.2rem;
 }
 .desc-footer {

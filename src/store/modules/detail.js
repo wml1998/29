@@ -4,8 +4,8 @@ const state = {
     desclist: {},   // 元数据
     current: '全部',    // 当前选择年份 
     currentList: [],    // 当前年份的车款数据 
-    newarr: [],
-    yearday:[]
+    newarr: [],      //总获取的是总数据
+    yearday:[]     //判断的是年份
 }
 // 给车款排序
 function sortCarList(list) {
@@ -78,7 +78,7 @@ const mutations = {
             // console.log(state.currentList,"应该渲染的所有数据")
             // console.log('currentList...====', currentList);
         } else {
-            alert(payload.msg)
+            // alert(payload.msg)
         }
     },
     updatayear(state, payload) {//更新前面传过来的年份
