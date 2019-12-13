@@ -67,18 +67,14 @@ const mutations = {
             let currentList = [];
             if (state.current == '全部') {
                 currentList = payload.data.list;
-                // console.log(currentList)
             } else {
                 currentList = payload.data.list.filter(item => item.market_attribute.year == state.current);
-                // console.log(currentList, "当前的全部的年份车辆")
             }
             // 3.给当前年份数据排序
             currentList = sortCarList(currentList);
             // 4.聚合key相同的车款数据
             currentList = formatCarList(currentList);
             state.currentList = currentList;
-            // console.log(state.currentList,"应该渲染的所有数据")
-            // console.log('currentList...====', currentList);
         } else {
             alert(payload.msg)
         }
@@ -88,7 +84,6 @@ const mutations = {
     },
     upcarStyle(state,payload){
         state.carStyle=payload
-        console.log( payload,"年份")
     },
     upcarColor(state,payload){
         state.carColor=payload

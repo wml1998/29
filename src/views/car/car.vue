@@ -84,7 +84,6 @@ export default {
       this.getDescList(this.$route.query.id);
     },
     jumpimg() {
-      //  console.log(this.imgid)
       this.$router.push({
         path: "/home/img",
         query: { id: this.imgid }

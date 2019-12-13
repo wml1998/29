@@ -20,7 +20,6 @@
         <SelectRight class="City" />
       </div>
     </div>
-    <!-- {{selectdata}} -->
   </div>
 </template>
 
@@ -50,7 +49,6 @@ export default {
     },
     showCity(item) {
         this.flag=true;
-        // console.log(item)
         this.getSelectRight(item.CityID);
     },
     close(){

@@ -18,9 +18,6 @@ let spinRoute={
        }
   }
 }
-
-
-
 const routes = [
   {
     path: "/home",
@@ -35,7 +32,6 @@ const routes = [
     meta:{
       title:"详情页"
     }
-    // component: () => import("../views/car/car.vue")
   }, {
     path: "/home/desc",
     component: () => import("../views/desc/desc.vue")

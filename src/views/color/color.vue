@@ -31,9 +31,7 @@ export default {
    mounted(){
     let {serialId} = this.$route.query;
     axios.get(`http://baojia.chelun.com/v2-car-getModelImageYearColor.html?SerialID=${serialId}`).then(res=>{
-      // window.console.log(res.data.data)
       this.list=res.data.data
-      console.log(this.list)
       let obj=JSON.parse(JSON.stringify(this.list))
       let arr=Object.values(obj)
       this.handleC(arr[0],0)
@@ -46,8 +44,6 @@ export default {
     }),
     clickColor(colorId,colorName){
       this.setColor(colorId);
-      console.log(colorId)
-      console.log(setColor,colorName,"===")
     },
     //点击年份切换高亮并切换数据
     handleC(item,key){

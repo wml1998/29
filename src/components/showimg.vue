@@ -10,24 +10,27 @@
         <span src :style="{backgroundImage:'url('+itemimg.Url+')'}"/>
       </li>
     </ul>
-       <Banner v-if="showImageList" /> 
-      <!--<ImagePreview v-if="showImageSwiper" :showImageSwiper.sync="showImageSwiper"></ImagePreview> -->
   </div>
 </template>
 
 <script>
+import {mapState,mapMutations} from "vuex"
 import Banner from "./bannerSwiper.vue"
 export default {
   props: ["item"],
   data() {
     return {
-      showImageList:false
+ showImageList:false
     }
   },
   methods: {
+    ...mapMutations({
+      setshowBanner:"color/setshowBanner"
+    }),
     showbanner(it){
       console.log(it.Id)
       this.showImageList=true
+     this.setshowBanner(this.showImageList)
     }
   },
   components:{

@@ -26,6 +26,5 @@ export let getSelectRight=(provinceid)=>{
 // 车系+城市的id
 export let getDealerList=({car_id,cityId})=>{
     console.log(car_id,cityId);
-    
     return request("/v2-dealer-alllist.html",{params:{carId:car_id,cityId}})
 }

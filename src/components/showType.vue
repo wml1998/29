@@ -65,7 +65,6 @@ export default {
       updatayear: "detail/updatayear",
        setCarId: 'color/setCarId',
        upcarStyle:"detail/upcarStyle",
-      //  upcarType:"detail/upcarType"
     }),
     chengeyear(item,index) {
       //点击tab切换时的操作
@@ -78,8 +77,6 @@ export default {
        this.$emit('update:showType', false)
       let cartype=atriyear+"款"+carName
       this.upcarStyle(cartype)
-      // this.upcarType(carName)
-      
     },
     allcartype(){
       this.$emit('update:showType', false)

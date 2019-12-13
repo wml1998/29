@@ -18,9 +18,7 @@
     <div class="container">
         <div>
             <p class="top-tip">正在刷新中...</p>
-            
             <slot :value="list.value"></slot>
-
             <!-- 底部动画 -->
             <div class="pullup-wrapper">
                 <div class="before-trigger" v-if="!isPullUpLoad">
@@ -33,7 +31,6 @@
         </div>
     </div>
 </template>
-
 <script>
 import BScroll from 'better-scroll';
 import {mapActions} from 'vuex';
@@ -60,10 +57,6 @@ export default {
         }
     },
     methods: {
-        // ...mapActions({
-        //     refreshDispatch: this.list.refreshDispatch,
-        //     loadMoreDispatch: this.list.loadMoreDispatch
-        // }),
         refreshDispatch(page){
             this.$store.dispatch(this.list.refreshDispatch, page)
         },
@@ -75,7 +68,6 @@ export default {
         this.scroll = new BScroll('.container',{
             scrollY: true,
             click: true,
-            // probeType: 1,
             pullUpLoad: {
                 threshold: 50
             },
@@ -84,13 +76,11 @@ export default {
               stop: 30
             }
         })
-
         this.scroll.on('pullingUp', async ()=>{
             // 判断是否加载完全部数据
             if (this.list.count == this.list.value.length){
                 return;
             }
-
             if (this.isPullUpLoad){
                 return;
             }
@@ -111,7 +101,6 @@ export default {
     .container{
         width: 100%;
         height: 100%;
-        // overflow-y: scroll;
         position: relative;
     }
     .top-tip{
