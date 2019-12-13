@@ -47,6 +47,10 @@ const routes = [
        component:()=>import("../views/color/color.vue")
   },
   {
+    path:"/home/typeList",
+    component:()=>import("../views/typeList/typeList.vue")
+},
+  {
     path: "*",
     redirect: "/home"
   }
