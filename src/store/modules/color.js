@@ -1,4 +1,4 @@
-import { getMasterSeries,getImageTypeList } from "../../services/index"
+import { getMasterSeries, getImageTypeList } from "../../services/index"
 
 
 const state = {
@@ -13,8 +13,8 @@ const state = {
   current: 0,    // 轮播的当前图片
   count: '',  //当前分类图片总数
   page: 1,  //当前分页
-  pageSize: 30 ,//每页数量
-  showBanner:false//是否显示banner组件
+  pageSize: 30,//每页数量
+  showBanner: false//是否显示banner组件
 }
 const mutations = {
   getSeries(state, payload) {
@@ -35,25 +35,29 @@ const mutations = {
   setCarId(state, payload) {
     state.carId = payload;
   },
-  setshowBanner(state,payload){
-       
-        if(payload==true){
-           state.showBanner=payload
-        }else{
-          state.showBanner=false
-        }
+  setshowBanner(state, payload) {
+
+    if (payload == true) {
+      state.showBanner = payload
+    } else {
+      state.showBanner = false
+    }
   },
   setSerialId(state, payload) {
     state.SerialID = payload;
   },
-  //详情数据的更改
-  upDateList(state, payload) {
-    state.list = payload
-  },
   setImageId(state, payload) {
     state.ImageID = payload;
+    console.log(payload, "wwwwww")
   },
-  // 修改当前分类图片列表和总数
+  setPage(state, payload) {
+    state.page = payload;
+  },
+  // 设置当前轮播的图片下标
+  setCurrent(state, payload) {
+    state.current = payload;
+  }
+  ,
   setImageList(state, payload) {
     state.count = payload.Count;
     payload.ImageID && (state.ImageID = payload.ImageID);
@@ -64,14 +68,7 @@ const mutations = {
       state.imageList = state.imageList.concat(payload.List);
     }
   },
-  // 修改当前分页
-  setPage(state, payload) {
-    state.page = payload;
-  },
-  // 设置当前轮播的图片下标
-  setCurrent(state, payload) {
-    state.current = payload;
-  }
+  //详情数据的更改
 }
 const actions = {
   async getMasterSeries({ commit, state }, payload) {
@@ -87,6 +84,7 @@ const actions = {
     let res = await getMasterSeries(params)
     commit('getSeries', res)
   },
+  //图片分类列表的请求
   async getImageTypeList({ commit, state }, payload) {
     if (payload) {
       commit('setPage', payload);
@@ -97,8 +95,10 @@ const actions = {
       Page: state.page,
       PageSize: state.pageSize
     }
+   
     let res = await getImageTypeList(params);
-    let { Count, List } = res.data.data;
+    console.log(res.data)
+    let { Count, List } = res.data;
     commit('setImageList', { Count, List });
   }
 }
