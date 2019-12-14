@@ -7,7 +7,7 @@
         <div class="desc-left">
           <img :src="desclist.CoverPhoto" alt>
         </div>
-        <div class="desc-right">
+        <div class="desc-right" @click="jumpImg()">
           <p>{{desclist.AliasName}}</p>
           <p>{{carsName}}</p>
         </div>
@@ -59,7 +59,11 @@
         <SelectCity/>
       </div>
     </transition>
-
+    <transition name="scroll">
+        <div class="wrap" v-show="showType">
+           <Showtype :Seriid="serid" :showType.sync="showType"/>
+        </div>
+    </transition>
     <div class="alert" v-if="flag">
       <div class="alert-content">
         <div class="wrap">
@@ -88,17 +92,14 @@ export default {
       DealerList: state => state.dealer.DealerList
     })
   },
-  components: {
-    Showtype
-  },
   created() {
     let car_id = localStorage.getItem("car_id");
     this.getDealerList({ car_id, cityId: "201" });
-    let getcarName=this.desclist.list.slice(0,1)
-    getcarName
-    getcarName.forEach((item,index)=>{
-      this.carsName=item.car_name
-    })
+    let getcarName = this.desclist.list.slice(0, 1);
+    getcarName;
+    getcarName.forEach((item, index) => {
+      this.carsName = item.car_name;
+    });
   },
   methods: {
     ...mapMutations({
@@ -116,9 +117,9 @@ export default {
     AlertOk() {
       this.flag = false;
     },
-    typeList(){
-
-
+    typeList() {},
+    jumpImg() {
+      this.showType = true;
     },
     getheight(e) {
       let far =
@@ -137,7 +138,9 @@ export default {
     return {
       desclist: JSON.parse(localStorage.getItem("car")),
       flag: false,
-      carsName:""
+      carsName: "",
+      showType: false,
+      serid: this.$route.query.id
     };
   },
   components: {
@@ -146,6 +149,24 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.scroll-top-enter,
+.scroll-top-leave-to {
+  transform: translate3d(0, 100%, 0);
+}
+.scroll-top-enter-active,
+.scroll-top-leave-active {
+  transition: transform 0.3s linear;
+}
+.wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  background: #fff;
+  z-index: 140;
+}
 .wrap-desc {
   width: 100%;
   height: 100%;
