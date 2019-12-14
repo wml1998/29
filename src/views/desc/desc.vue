@@ -6,11 +6,12 @@
       <div class="commit" @click="typeList">
         <div data-hover="hover" class="q-info flex-row">
           <img :src="desclist.CoverPhoto" alt>
-        </div>
-        <div class="desc-right">
+           <div class="desc-right">
           <p>{{desclist.AliasName}}</p>
           <p>{{carsName}}</p>
         </div>
+        </div>
+       
       </div>
       <div class="self-info">
         <p class="tip">个人信息</p>
@@ -120,7 +121,10 @@ export default {
       this.flag = false;
     },
     typeList(){
-
+ this.$router.push(
+      {
+        path:"/home/typeList"
+      })
 
     },
     getheight(e) {
