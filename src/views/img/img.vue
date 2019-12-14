@@ -154,4 +154,3 @@ export default {
   z-index: 100;
 }
 </style>
-

@@ -76,7 +76,7 @@ const mutations = {
             currentList = formatCarList(currentList);
             state.currentList = currentList;
         } else {
-            alert(payload.msg)
+            // alert(payload.msg)
         }
     },
     updatayear(state, payload) {//更新前面传过来的年份
