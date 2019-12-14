@@ -42,7 +42,7 @@ export default {
     }),
     jumpimg(car_id) {
       console.log(car_id)
-      // this.$router.push("/home/desc");
+      this.$router.push("/home/desc");
     }
   },
   created() {
