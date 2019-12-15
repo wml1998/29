@@ -60,10 +60,6 @@
         <SelectCity/>
       </div>
     </transition>
-    <!-- 询问最低价 就是最后需要判断滑动的距离 来显现出button的按钮 -->
-    <!-- <div class="desc-footer">
-      <button data-hover="hover" @click="alertClick">询最低价</button>
-    </div> -->
     <div class="alert" v-if="flag">
       <div class="alert-content">
         <div class="wrap">
