@@ -30,7 +30,7 @@
 </template>
 <script>
 import Right from "../components/Right.vue";
-import Loading from "../components/loading.vue"
+import Loading from "../components/loading.vue";
 import Repertory from "../components/repertory.vue";
 import { mapActions, mapState } from "vuex";
 import { setTimeout } from "timers";
@@ -59,19 +59,12 @@ export default {
       getRightlist: "home/getRightlist"
     }),
     rightIndex(MasterID) {
-      // console.log(MasterID);
       this.getRightlist(MasterID);
       this.flag = true;
       this.$refs.rightstyle.style.width = "75%";
-      
     },
     jumps(item) {
-      // console.log(item.letter,"22222222222")
       this.iScroller = item.letter;
-      // console.log(document.querySelector(
-      // `#${item.letter}`).offsetTop,"11111111")
-
-      // console.log()
       document.querySelector(".home").scrollTop = document.querySelector(
         `#${item.letter}`
       ).offsetTop;
@@ -80,17 +73,11 @@ export default {
     touchstart(e) {
       this.startPageX = e.touches[0].pageX;
       this.startPageY = e.touches[0].pageY;
-      // console.log(e);
-      // console.log(e.touches[0].pageX)
-      // console.log(e.touches[0].pageY)
     },
-    touchmove() {
-      // console.log(22)
-    },
+    touchmove() {},
     touchend(e) {
       let endPageX = e.changedTouches[0].clientX;
       let endPageY = e.changedTouches[0].clientY;
-      // console.log(this.startPageY - endPageY * 1);
       if (
         endPageX - this.startPageX > 80 ||
         Math.abs(this.startPageY - endPageY) < 50
@@ -101,8 +88,6 @@ export default {
           this.flag = false;
         }, 200);
       }
-      // console.log(e.changedTouches[0].clientX)
-      // console.log(e.changedTouches[0].clientY)
     },
     officialVanish() {
       this.amendstatefalse();

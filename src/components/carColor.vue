@@ -7,7 +7,7 @@
          :class="{active: curIndex==key}">{{index}}</span>
       </p>
       <ul>
-        <li v-for="(v,i) in colorData" :key="i" @click="clickColor(v.ColorId)">
+        <li v-for="(v,i) in colorData" :key="i" @click="clickColor(v.ColorId,v.Name)">
           <span :style="{background: v.Value}"></span>
           {{v.Name}}
         </li>
@@ -18,8 +18,7 @@
 
 <script>
 import axios from "axios"
-import {mapMutations} from 'vuex';
-
+import {mapMutations,mapState} from 'vuex';
 export default {
     props:["Seriid"],
   data(){
@@ -31,12 +30,8 @@ export default {
      }
   },
    mounted(){
-    // let Seriid = this.Seriid
     let SerialID=this.Seriid
-    // console.log(this.Seriid)
     axios.get('http://baojia.chelun.com/v2-car-getModelImageYearColor.html',{params:{SerialID}}).then(res=>{
-      // window.console.log(res.data.data)
-      // console.log(res,"ssssssssssss")
       this.list=res.data.data
       let obj=JSON.parse(JSON.stringify(this.list))
       let arr=Object.values(obj)
@@ -44,15 +39,17 @@ export default {
      }
     )
   },
+
   methods: {
     ...mapMutations({
-      setColor: 'color/setColorId'
+      setColor: 'color/setColorId',
+      upcarColor:"detail/upcarColor"
     }),
-    clickColor(colorId){
+    clickColor(colorId,carsColor){
       this.setColor(colorId);
       console.log(colorId,"0000")
       this.$emit('update:showColor', false)
-      // window.history.back();
+      this.upcarColor(carsColor)
     },
     //点击年份切换高亮并切换数据
     handleC(item,key){
@@ -62,9 +59,7 @@ export default {
   }
 };
 </script>
-
 <style lang="scss" scoped>
-
 .color {
   width: 100%;
   height: 100%;
@@ -79,7 +74,6 @@ export default {
     line-height: .8rem;
     height: .8rem;
 }
-
 .color .c-type {
     margin-top: .15rem;
     padding-left: .2rem;

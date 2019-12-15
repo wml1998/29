@@ -1,27 +1,17 @@
 <template>
-<!-- 组件：再查看车款页面查看车款 -->
-  <div class="typebox">
-    <div class="allCarType">
-      <p class="alltype" @click="allcartype">全部车款</p>
+  <div class="type">
+    <div class="c-type">
+      <span v-for="(item,index) in yearday" :key="index" class="active">{{item}}</span>
     </div>
-
-    <div>
-      <div class="c-type">
-        <span
-          v-for="(item,index)  in year"
-          @click="chengeyear(item,index)"   
-
-          
-          :class="{active:curIndex==index}" 
-          :key="index"
-        >{{item}}</span>
-      </div>
-    </div>
-
     <div v-for="(item,index) in currentList" :key="index">
       <p class="every-title">{{item.key}}</p>
       <ul class="showlist">
-        <li class="listyle" v-for="(item,index) in item.list" :key="index" @click="jumpimg(item.car_id,item.market_attribute.year,item.car_name)">
+        <li
+          class="listyle"
+          v-for="(item,index) in item.list"
+          :key="index"
+          @click="jumpimg(item.car_id)"
+        >
           <p class="p-first">
             <span>{{item.market_attribute.year}}款 {{item.car_name}}</span>
             <span class="offerprice">{{item.market_attribute.dealer_price_min}}起</span>
@@ -38,64 +28,55 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
+
 export default {
-  data() {
-    return {
-      imgid: this.$route.query.id,
-      curIndex: 0
-    };
-  },
   computed: {
     ...mapState({
-      year: state => state.detail.yearday,
-      currentList: state => state.detail.currentList
+      currentList: state => state.detail.currentList,
+      yearday: state => state.detail.yearday
     })
-  },
-  created() {
-    this.getDescList(this.$route.query.id);
-    
   },
   methods: {
     ...mapActions({
-      //解构
       getDescList: "detail/getDescList"
     }),
-    ...mapMutations({
-      //解构
-      updatayear: "detail/updatayear",
-       setCarId: 'color/setCarId',
-       upcarStyle:"detail/upcarStyle",
-    }),
-    chengeyear(item,index) {
-      //点击tab切换时的操作
-      this.updatayear(item);
-      this.getDescList(this.$route.query.id);
-       this.curIndex = index;
-    },
-    jumpimg(carId,atriyear,carName){
-      this.setCarId(carId)
-       this.$emit('update:showType', false)
-      let cartype=atriyear+"款"+carName
-      this.upcarStyle(cartype)
-    },
-    allcartype(){
-      this.$emit('update:showType', false)
+    jumpimg(car_id) {
+      console.log(car_id)
+      this.$router.push("/home/desc");
     }
+  },
+  created() {
+    let SerialID = JSON.parse(localStorage.getItem("car")).SerialID;
+    // console.log(SerialID, "-------------------");
+    this.getDescList(SerialID);
   }
 };
 </script>
-<style lang="scss">
-#app {
+
+<style lang="scss" scoped>
+.wrap {
   width: 100%;
   height: 100%;
 }
-
+ .type .c-type {
+    margin-top: .15rem;
+    padding-left: .2rem;
+    font-size: .3rem;
+    line-height: .76rem;
+    height: .76rem;
+    background: #fff;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+.type .c-type span {
+    padding-right: .42rem;
+}
 .active {
   color: #00afff;
 }
-.allCarType{
-  p:hover{
-    opacity:.7
+.allCarType {
+  p:hover {
+    opacity: 0.7;
   }
 }
 .typebox {
@@ -121,8 +102,8 @@ export default {
   height: 0.76rem;
   background: #fff;
   overflow-x: scroll;
-  span{
-    padding-right: .42rem
+  span {
+    padding-right: 0.42rem;
   }
 }
 .every-title {

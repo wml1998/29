@@ -4,7 +4,7 @@
     <div class="content">   
       <!-- 装载图片 -->
       <div class="img" @click="jumpimg()">
-        <img :src="descList.CoverPhoto" alt>
+        <img :src="descList.CoverPhoto" alt />
         <span class="data-hover">{{descList.pic_group_count}}张照片</span>
       </div>
       <div class="info">
@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="bottom-clumn">
+    <div class="bottom-clumn" @click="currentcar()">
       <p class="answer">询问底价</p>
       <p class="answertwo">本地经销商为你报价</p>
     </div>
@@ -52,8 +52,8 @@ import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      imgid:this.$route.query.id
-    }
+      imgid: this.$route.query.id
+    };
   },
   computed: {
     ...mapState({
@@ -63,42 +63,45 @@ export default {
     })
   },
   created() {
+    
     this.getDescList(this.$route.query.id);
     console.log(this.$route.query.id,"iiiidddd")
     // localStorage.setItem("infocar",JSON.stringify(this.descList))
 
+    // localStorage.setItem("infocar",JSON.stringify(this.descList))
   },
   methods: {
-    ...mapActions({//解构
+    ...mapActions({
+      //解构
       getDescList: "detail/getDescList"
     }),
-    ...mapMutations({//解构
+    ...mapMutations({
+      //解构
       updatayear: "detail/updatayear"
     }),
-    chengeyear(item) {//点击tab切换时的操作
+    chengeyear(item) {
+      //点击tab切换时的操作
       this.updatayear(item);
       this.getDescList(this.$route.query.id);
     },
-    jumpimg(){
-        //  console.log(this.imgid)
-         this.$router.push({
-           path: "/home/img",
-           query:{id:this.imgid}
-         })
-    },
-    currentcar(){
-      localStorage.setItem("car",JSON.stringify(this.descList))
+    jumpimg() {
       this.$router.push({
-        path:"/home/desc"
-        //这个是跳转路由
-      })
+        path: "/home/img",
+        query: { id: this.imgid }
+      });
     },
-    answerprice(){
-          localStorage.setItem("car",JSON.stringify(this.descList))
+    answerprice(id) {
+      localStorage.setItem('car_id',id)
+      this.$router.push("/home/desc")
+    },
+    currentcar() {
+      localStorage.setItem("car", JSON.stringify(this.descList));
       this.$router.push({
-        path:"/home/desc"
-        //这个是跳转路由
-      })
+        path: "/home/desc"
+      });
+      // 存车款id
+      let car_id = this.currentList[0].list[0].car_id;
+      localStorage.setItem("car_id", car_id);
     }
   }
 };
@@ -238,7 +241,7 @@ export default {
       background: #fff;
       font-weight: 500;
       margin-left: -0.3rem;
-      outline: none
+      outline: none;
     }
     .p-first {
       padding: 0.26rem 0 0.18rem;
@@ -271,8 +274,8 @@ export default {
     font-size: 0.24rem;
   }
 }
-.currentbuy{
-  outline: none
+.currentbuy {
+  outline: none;
 }
 </style>
 

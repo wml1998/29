@@ -5,7 +5,7 @@
     ref="container"
     @touchstart="touchStart"
     @touchmove="touchMove"
-    @touchend="touchEnd"
+    
   >
     <div v-for="(item,index) in arr" @click="jump(item)" :key="index" class="nav_item">{{item.letter}}</div>
   </div>
@@ -20,12 +20,9 @@ export default {
       }
     }
   },
-  watch: {
-    arr: function(){
-      this.$nextTick(()=>{
-        this.offsetTop = (window.innerHeight - this.$refs.container.offsetHeight)/2;
-        // console.log('offsetTop...', this.offsetTop)
-      })
+  data() {
+    return {
+      getOffheight:null
     }
   },
   methods: {
@@ -33,23 +30,21 @@ export default {
         this.$emit('Parent_jump',item)
     },
     touchStart(e){
-      let y = e.touches[0].pageY - this.offsetTop;
+      this.getOffheight=(window.outerHeight - this.$refs.container.offsetHeight)/2
+      let y = e.touches[0].pageY - this.getOffheight;
       let index = Math.floor(y/18);
-      // console.log('start...', e.touches[0], this.arr[index]);
     },
     touchMove(e){
-      let y = e.touches[0].pageY - this.offsetTop;
+      let y = e.touches[0].pageY - this.getOffheight
       let index = Math.floor(y/18);
-      // 处理边界
-      index<1?index=1:index>this.arr.length-1?index=this.arr.length-1:null;
+      // // 处理边界
+      index<0?index=0:index>this.arr.length-1?index=this.arr.length-1:null
       this.$emit('Parent_jump', this.arr[index]);
-      // console.log('start...', this.arr[index]);
     },
     touchEnd(e){
-     
+  
     }
   },
-
 };
 </script>
 
