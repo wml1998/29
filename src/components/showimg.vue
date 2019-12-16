@@ -14,29 +14,28 @@
 </template>
 
 <script>
-import {mapState,mapMutations} from "vuex"
-import Banner from "./bannerSwiper.vue"
+import { mapState, mapMutations } from "vuex";
+import Banner from "./bannerSwiper.vue";
 export default {
   props: ["item"],
   data() {
     return {
- showImageList:false
-    }
+      showImageList: false
+    };
   },
   methods: {
     ...mapMutations({
-      setshowBanner:"color/setshowBanner",
-      setImageId:"color/setImageId"
-     
+      setshowBanner: "color/setshowBanner",
+      setImageId: "color/setImageId"
     }),
-    showbanner(it){
-      console.log(it.Id)
-      this.showImageList=true
-     this.setshowBanner(this.showImageList)
-     this.setImageId(it.Id)
+    showbanner(it) {
+      console.log(it.Id);
+      this.showImageList = true;
+      this.setshowBanner(this.showImageList);
+      this.setImageId(it.Id);
     }
   },
-  components:{
+  components: {
     Banner
   }
 };
